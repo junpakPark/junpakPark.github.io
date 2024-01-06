@@ -1,0 +1,36 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import PostCard from "../components/PostCard";
+import { type CollectionEntry, getCollection } from "astro:content";
+import Carousel from "../components/Carousel";
+import { groupSeries } from "../utils";
+
+const recentPost: CollectionEntry<"blog">[] = (await getCollection("blog"))
+  .sort(
+    (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+      b.data.date.valueOf() - a.data.date.valueOf()
+  )
+  .slice(0, 9);
+
+const shuffledSeries: CollectionEntry<"series">[] = (
+  await getCollection("series")
+)
+  .sort((a, b) => Math.random() - 0.5)
+  .slice(0, 5);
+---
+
+<MainLayout>
+  <div
+    class="bg-gradient-to-l from-blue-200 via-purple-200 to-pink-200 relative w-full h-96"
+  >
+    <Carousel client:load slides={groupSeries(shuffledSeries)} />
+  </div>
+
+  <div class="my-8 max-w-screen-xl mx-auto">
+    <h2 class="p-4 text-2xl font-semibold">최근 포스팅 게시물</h2>
+    <hr class="p-4" />
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {recentPost.map(post => <PostCard post={post} />)}
+    </div>
+  </div>
+</MainLayout>

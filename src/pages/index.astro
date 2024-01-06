@@ -3,7 +3,6 @@ import MainLayout from "../layouts/MainLayout.astro";
 import PostCard from "../components/PostCard";
 import { type CollectionEntry, getCollection } from "astro:content";
 import Carousel from "../components/Carousel";
-import { groupSeries } from "../utils";
 
 const recentPost: CollectionEntry<"blog">[] = (await getCollection("blog"))
   .sort(
@@ -23,7 +22,7 @@ const shuffledSeries: CollectionEntry<"series">[] = (
   <div
     class="bg-gradient-to-l from-blue-200 via-purple-200 to-pink-200 relative w-full h-96"
   >
-    <Carousel client:load slides={groupSeries(shuffledSeries)} />
+    <Carousel client:load slides={shuffledSeries} />
   </div>
 
   <div class="my-8 max-w-screen-xl mx-auto">

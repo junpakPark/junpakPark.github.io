@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { slugify } from "../utils";
 import type { CollectionEntry } from 'astro:content';
 
@@ -82,24 +82,40 @@ const CarouselItem: React.FC<CarouselItemProps> = ({ serieses, isActive }) => {
 
 
 type CarouselProps = {
-    slides: CollectionEntry<'series'>[][];
+    slides: CollectionEntry<'series'>[];
 };
 
 const Carousel: React.FC<CarouselProps> = ({ slides }) => {
+    const [groupedSeries, setGroupedSeries] = useState<CollectionEntry<'series'>[][]>([]);
     const [currentSlide, setCurrentSlide] = useState(0);
-
 
     const goToSlide = (slideIndex: number) => {
         setCurrentSlide(slideIndex);
     };
 
     const goToPrevious = () => {
-        setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+        setCurrentSlide((prev) => (prev === 0 ? groupedSeries.length - 1 : prev - 1));
     };
 
     const goToNext = () => {
-        setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+        setCurrentSlide((prev) => (prev === groupedSeries.length - 1 ? 0 : prev + 1));
     };
+
+    useEffect(() => {
+        const shuffledSeries = slides.sort(() => Math.random() - 0.5);
+
+        const newGroupedSeries = shuffledSeries.reduce((acc, series) => {
+            const lastArray = acc[acc.length - 1];
+            if (!lastArray || lastArray.length === 3) {
+                acc.push([series]);
+            } else {
+                lastArray.push(series);
+            }
+            return acc;
+        }, [] as CollectionEntry<'series'>[][]);
+
+        setGroupedSeries(newGroupedSeries);
+    }, [slides]);
 
     return (
         <div
@@ -109,13 +125,13 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
             <div className="flex flex-row mx-auto justify-between items-center">
                 <CarouselControl direction="prev" onClick={goToPrevious} />
                 <div>
-                    {slides.map((slide, index) => (<CarouselItem key={index} serieses={slide} isActive={index === currentSlide} />))}
+                    {groupedSeries.map((slide, index) => (<CarouselItem key={index} serieses={slide} isActive={index === currentSlide} />))}
                 </div>
 
                 <CarouselControl direction="next" onClick={goToNext} />
             </div>
 
-            <CarouselIndicators totalSlides={slides.length} currentSlide={currentSlide} goToSlide={goToSlide} />
+            <CarouselIndicators totalSlides={groupedSeries.length} currentSlide={currentSlide} goToSlide={goToSlide} />
         </div>
     );
 };

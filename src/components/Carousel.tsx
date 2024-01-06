@@ -11,7 +11,7 @@ const CarouselControl: React.FC<CarouselControlProps> = ({ direction, onClick })
     return (
         <button
             type="button"
-            className={`${direction === 'prev' ? 'start-0' : 'end-0'} z-30 cursor-pointer group focus:outline-none rounded-full border border-transparent text-white bg-purple-400/60 disabled:opacity-50 disabled:pointer-events-none`}
+            className={`${direction === 'prev' ? 'start-0' : 'end-0'} z-30 cursor-pointer group focus:outline-none rounded-full border border-transparent text-white bg-[#640028]/10 disabled:opacity-50 disabled:pointer-events-none`}
             onClick={onClick}
             aria-label={direction === 'prev' ? 'Previous' : 'Next'}
         >
@@ -37,7 +37,7 @@ const CarouselIndicators: React.FC<CarouselIndicatorsProps> = ({ totalSlides, cu
                 <button
                     key={index}
                     type="button"
-                    className={`w-8 h-2 rounded-full ${index === currentSlide ? 'bg-purple-400/80' : 'bg-gray-300/80'}`}
+                    className={`w-8 h-2 rounded-full ${index === currentSlide ? 'bg-gray-100/50' : 'bg-[#640028]/10'}`}
                     aria-current={index === currentSlide ? 'true' : 'false'}
                     aria-label={`Slide ${index + 1}`}
                     onClick={() => goToSlide(index)}
@@ -60,17 +60,17 @@ const CarouselItem: React.FC<CarouselItemProps> = ({ serieses, isActive }) => {
                     key={index}
                     className="flex items-center justify-center w-64 mx-auto h-72 mt-10 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
                     style={{
-                        background: 'rgba(255, 255, 255, 0.21)',
+                        background: 'rgba(100, 0, 40, 0.1)',
                         borderRadius: '16px',
                         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                        backdropFilter: 'blur(6.8px)',
-                        WebkitBackdropFilter: 'blur(6.8px)',
-                        border: '1px solid rgba(255, 255, 255, 0.36)'
+                        backdropFilter: 'blur(8px)',
+                        WebkitBackdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)'
                     }}
                 >
                     <a href={`/series/${slugify(series.data.title)}`}>
-                        <h2 className="text-xl font-semibold mb-2">{series.data.title}</h2>
-                        <p className="mt-1">
+                        <h2 className="text-[#F4F4FF] text-center text-3xl font-bold mb-2">{series.data.title}</h2>
+                        <p className="text-[#F4F4FF] mt-4 text-sm font-thin text-center">
                             {series.data.description}
                         </p>
                     </a>

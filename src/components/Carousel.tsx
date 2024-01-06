@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { slugify } from "../utils";
 import type { CollectionEntry } from 'astro:content';
 
@@ -86,7 +86,6 @@ type CarouselProps = {
 };
 
 const Carousel: React.FC<CarouselProps> = ({ slides }) => {
-    const [groupedSeries, setGroupedSeries] = useState<CollectionEntry<'series'>[][]>([]);
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const goToSlide = (slideIndex: number) => {
@@ -101,21 +100,13 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
         setCurrentSlide((prev) => (prev === groupedSeries.length - 1 ? 0 : prev + 1));
     };
 
-    useEffect(() => {
-        const shuffledSeries = slides.sort(() => Math.random() - 0.5);
+    const groupSeriesIntoChunks = (series: CollectionEntry<'series'>[], chunkSize: number = 3): CollectionEntry<'series'>[][] => {
+        return Array.from({ length: Math.ceil(series.length / chunkSize) }, (_, i) =>
+            series.slice(i * chunkSize, i * chunkSize + chunkSize)
+        );
+    };
 
-        const newGroupedSeries = shuffledSeries.reduce((acc, series) => {
-            const lastArray = acc[acc.length - 1];
-            if (!lastArray || lastArray.length === 3) {
-                acc.push([series]);
-            } else {
-                lastArray.push(series);
-            }
-            return acc;
-        }, [] as CollectionEntry<'series'>[][]);
-
-        setGroupedSeries(newGroupedSeries);
-    }, [slides]);
+    const groupedSeries = groupSeriesIntoChunks(slides);
 
     return (
         <div

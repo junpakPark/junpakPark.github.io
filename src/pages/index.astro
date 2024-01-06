@@ -13,9 +13,7 @@ const recentPost: CollectionEntry<"blog">[] = (await getCollection("blog"))
 
 const shuffledSeries: CollectionEntry<"series">[] = (
   await getCollection("series")
-)
-  .sort((a, b) => Math.random() - 0.5)
-  .slice(0, 5);
+).sort((a, b) => Math.random() - 0.5);
 ---
 
 <MainLayout>

@@ -110,7 +110,7 @@ const ScrollSpy: React.FC<HeadingProps> = ({ headings }) => {
                             <a
                                 href={`#${heading.slug}`}
                                 onClick={(e) => handleTocClick(e, heading.slug)}
-                                className={`text-sm leading-8 hover:text-gray-900 focus:outline-none ${activeToc === heading.slug ? "font-medium text-gray-900" : "text-gray-400"}`}
+                                className={`text-sm leading-8 hover:text-gray-900 hover:font-medium  focus:outline-none ${activeToc === heading.slug ? "font-medium text-gray-900" : "text-gray-400"}`}
                             >
                                 {heading.text}
                             </a>

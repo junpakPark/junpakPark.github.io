@@ -38,7 +38,7 @@ const ArticleHeader: React.FC<ArticleHeaderProps> = ({ article }) => {
     const { title, date, tags } = article.data;
     
     return (
-        <section className='mb-16'>
+        <header className='mb-16'>
             <h1 className="font-bold text-4xl mb-4">{title}</h1>
             <p className='mb-4'>
                 <time className='font-thin text-gray-500 dark:text-gray-400'>{formatDate(date)}</time>
@@ -46,7 +46,7 @@ const ArticleHeader: React.FC<ArticleHeaderProps> = ({ article }) => {
             </p>
             <TagList tags={tags} />
             <hr />
-        </section>
+        </header>
     );
 };
 

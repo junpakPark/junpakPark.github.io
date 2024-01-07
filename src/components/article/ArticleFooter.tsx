@@ -60,11 +60,11 @@ const ProfileComponent: React.FC = () => {
 
 const ArticleFooter: React.FC<NavigationSectionProps> = ({ prevPost, nextPost }) => {
     return (
-        <section className='mt-16 mb-16'>
+        <footer className='mt-16 mb-16'>
             <hr />
             <ProfileComponent />
             <NavigationSection prevPost={prevPost} nextPost={nextPost} />
-        </section>
+        </footer>
     );
 };
 

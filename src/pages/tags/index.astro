@@ -34,11 +34,17 @@ const {allTags, tagCounts} = await getTags();
 ---
 
 <MainLayout>
-    <div class="max-w-screen-xl mx-auto">
+    <div
+            class="max-w-screen-xl mx-auto"
+            style="min-height: calc(100vh - 188px)"
+    >
         <main class="mx-auto p-[4rem] md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]">
             <div class="space-y-4">
-                <h1>There are {allTags.length} tags</h1>
+                <h1 class="text-2xl font-semibold">
+                    There are <span class="text-purple-600">{allTags.length}</span> tags!
+                </h1>
                 <TagList tags={allTags} tagCounts={tagCounts}/>
+                <hr/>
             </div>
         </main>
     </div>

@@ -76,8 +76,8 @@ const FeatureButtons: React.FC = () => {
             className="hidden md:flex space-x-6 items-center border-l border-slate-200 ml-6 pl-6"
         >
             {features.map((feature) => (
-                <a href={`/${feature.name}`}>
-                    <IconButton key={feature.name} iconPath={feature.path} width={20} height={20}/>
+                <a key={feature.name} href={`/${feature.name}`}>
+                    <IconButton iconPath={feature.path} width={20} height={20}/>
                 </a>
 
             ))}

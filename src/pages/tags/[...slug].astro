@@ -34,6 +34,23 @@ const {tag, tagedPosts} = Astro.props;
 ---
 
 <MainLayout>
-    <h1>Posts about {tag}</h1>
-    <PostList posts={tagedPosts}/>
+    <div
+            class="max-w-screen-xl mx-auto"
+            style="min-height: calc(100vh - 188px)"
+    >
+        <main class="mx-auto p-[4rem] md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]">
+            <div class="space-y-4">
+                <h1 class="text-2xl font-semibold">
+                    <span class="text-purple-600"> {tagedPosts.length} </span>
+                    Posts about
+                    <span class="text-purple-600"> {tag} </span>
+                    tags!
+                </h1>
+                <PostList posts={tagedPosts}/>
+
+            </div>
+        </main>
+    </div>
+
+
 </MainLayout>

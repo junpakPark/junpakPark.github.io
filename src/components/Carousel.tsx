@@ -11,7 +11,7 @@ const CarouselControl: React.FC<CarouselControlProps> = ({ direction, onClick })
     return (
         <button
             type="button"
-            className={`${direction === 'prev' ? 'start-0' : 'end-0'} z-30 cursor-pointer group focus:outline-none rounded-full border border-transparent text-white bg-[#640028]/10 disabled:opacity-50 disabled:pointer-events-none`}
+            className={`${direction === 'prev' ? 'start-0' : 'end-0'} hidden lg:block cursor-pointer group focus:outline-none rounded-full border border-transparent text-white bg-[#640028]/10 disabled:opacity-50 disabled:pointer-events-none`}
             onClick={onClick}
             aria-label={direction === 'prev' ? 'Previous' : 'Next'}
         >
@@ -32,7 +32,7 @@ type CarouselIndicatorsProps = {
 
 const CarouselIndicators: React.FC<CarouselIndicatorsProps> = ({ totalSlides, currentSlide, goToSlide }) => {
     return (
-        <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+        <div className="absolute flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
             {Array.from({ length: totalSlides }).map((_, index) => (
                 <button
                     key={index}
@@ -54,11 +54,11 @@ type CarouselItemProps = {
 
 const CarouselItem: React.FC<CarouselItemProps> = ({ serieses, isActive }) => {
     return (
-        <div className={`grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ${isActive ? '' : 'hidden'}`}>
+        <div className={`grid gap-2 lg:gap-8 grid-cols-3 ${isActive ? '' : 'hidden'}`}>
             {serieses.map((series, index) => (
                 <div
                     key={index}
-                    className="flex items-center justify-center w-64 mx-auto h-72 mt-10 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                    className="flex items-center justify-center w-64 mx-auto h-36 md:h-72 mt-10 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
                     style={{
                         background: 'rgba(100, 0, 40, 0.1)',
                         borderRadius: '16px',
@@ -111,9 +111,9 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
     return (
         <div
             data-carousel="slide"
-            className="max-w-screen-xl mx-auto h-56 overflow-hidden rounded-lg md:h-96"
+            className="max-w-screen-xl mx-auto h-56 overflow-x-scroll rounded-lg md:h-96 transition ease-in-out"
         >
-            <div className="flex flex-row mx-auto justify-between items-center">
+            <div className="flex flex-row mx-auto justify-center lg:justify-between items-center">
                 <CarouselControl direction="prev" onClick={goToPrevious} />
                 <div>
                     {groupedSeries.map((slide, index) => (<CarouselItem key={index} serieses={slide} isActive={index === currentSlide} />))}

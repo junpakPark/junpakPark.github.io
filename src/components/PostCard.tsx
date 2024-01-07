@@ -12,8 +12,6 @@ interface TagListProps {
 }
 
 const TagList: React.FC<TagListProps> = ({ tags, limitCount }) => {
-
-
     return (
         <>
             {tags.slice(0, limitCount).map((tag, index) => (

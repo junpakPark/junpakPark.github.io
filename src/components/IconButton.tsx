@@ -1,14 +1,12 @@
 import React from 'react';
 
-// Define a type for the props
 type ButtonProps = {
     iconPath: string;
     width: number;
     height: number;
 };
 
-// Define the Button component
-const IconButton: React.FC<ButtonProps> = ({ iconPath, width, height }) => {
+const IconButton: React.FC<ButtonProps> = ({iconPath, width, height}) => {
     return (
         <button
             type="button"
@@ -25,7 +23,7 @@ const IconButton: React.FC<ButtonProps> = ({ iconPath, width, height }) => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <path d={iconPath} fill="currentColor" />
+                <path d={iconPath} fill="currentColor"/>
             </svg>
         </button>
     );

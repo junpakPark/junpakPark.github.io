@@ -1,32 +1,31 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type {CollectionEntry} from "astro:content";
 
 import "../styles/mdx.css";
 import FloatingBar from "../components/article/FloatingBar";
 import ArticleHeader from "../components/article/ArticleHeader";
 import ArticleFooter from "../components/article/ArticleFooter";
-import type { MarkdownHeading } from 'astro';
+import type {MarkdownHeading} from 'astro';
 
-const { currentPost, prevPost, nextPost, headings } = Astro.props;
+const {currentPost, prevPost, nextPost, headings} = Astro.props;
 
 interface Props {
-  currentPost: CollectionEntry<"blog">;
-  prevPost: CollectionEntry<"blog">;
-  nextPost: CollectionEntry<"blog">;
-  headings: MarkdownHeading[]
+    currentPost: CollectionEntry<"blog">;
+    prevPost: CollectionEntry<"blog">;
+    nextPost: CollectionEntry<"blog">;
+    headings: MarkdownHeading[]
 }
-
 ---
 
 <div class="max-w-screen-xl mx-auto">
-  <article
-    class="mx-auto p-[4rem] md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]"
-  >
-    <ArticleHeader article={currentPost} />
-    <div class="mdx">
-      <slot />
-    </div>
-    <ArticleFooter prevPost={prevPost} nextPost={nextPost} />
-  </article>
-  <FloatingBar headings={headings} client:load />
+    <article
+            class="mx-auto p-[4rem] md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]"
+    >
+        <ArticleHeader article={currentPost}/>
+        <div class="mdx">
+            <slot/>
+        </div>
+        <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
+    </article>
+    <FloatingBar headings={headings} client:load/>
 </div>

@@ -12,7 +12,7 @@ interface SocialButtonsProps {
     className?: string;
 }
 
-const SocialButtons: React.FC<SocialButtonsProps> = ({ socialMedias, className = '' }) => {
+const SocialButtons: React.FC<SocialButtonsProps> = ({socialMedias, className = ''}) => {
     return (
         <div className="flex py-2 mt-4 space-x-6 sm:justify-center sm:mt-0">
             {socialMedias.map((socialMedia, index) => (
@@ -24,7 +24,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({ socialMedias, className =
                     rel="noopener noreferrer"
                     aria-label={`Link to ${socialMedia.name}`}
                 >
-                    <IconButton iconPath={socialMedia.d} height={20} width={20} />
+                    <IconButton iconPath={socialMedia.d} height={20} width={20}/>
                 </a>
             ))}
         </div>

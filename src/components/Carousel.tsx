@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { slugify } from "../utils";
-import type { CollectionEntry } from 'astro:content';
+import React, {useState} from 'react';
+import {slugify} from "../utils";
+import type {CollectionEntry} from 'astro:content';
 
 type CarouselControlProps = {
     direction: 'prev' | 'next';
     onClick: () => void;
 };
 
-const CarouselControl: React.FC<CarouselControlProps> = ({ direction, onClick }) => {
+const CarouselControl: React.FC<CarouselControlProps> = ({direction, onClick}) => {
     return (
         <button
             type="button"
@@ -16,8 +16,12 @@ const CarouselControl: React.FC<CarouselControlProps> = ({ direction, onClick })
             aria-label={direction === 'prev' ? 'Previous' : 'Next'}
         >
             <span className="inline-flex items-center justify-center w-10 h-10">
-                <svg className={`w-4 h-4  ${direction === 'next' ? 'rtl:rotate-180' : ''}`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={direction === 'prev' ? 'M5 1 1 5l4 4' : 'm1 9 4-4-4-4'} />
+                <svg
+                    className={`w-4 h-4  ${direction === 'next' ? 'rtl:rotate-180' : ''}`} aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path
+                        stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                        d={direction === 'prev' ? 'M5 1 1 5l4 4' : 'm1 9 4-4-4-4'}/>
                 </svg>
             </span>
         </button>
@@ -30,10 +34,10 @@ type CarouselIndicatorsProps = {
     goToSlide: (slideIndex: number) => void;
 };
 
-const CarouselIndicators: React.FC<CarouselIndicatorsProps> = ({ totalSlides, currentSlide, goToSlide }) => {
+const CarouselIndicators: React.FC<CarouselIndicatorsProps> = ({totalSlides, currentSlide, goToSlide}) => {
     return (
         <div className="absolute flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-            {Array.from({ length: totalSlides }).map((_, index) => (
+            {Array.from({length: totalSlides}).map((_, index) => (
                 <button
                     key={index}
                     type="button"
@@ -52,7 +56,7 @@ type CarouselItemProps = {
     isActive: boolean;
 };
 
-const CarouselItem: React.FC<CarouselItemProps> = ({ serieses, isActive }) => {
+const CarouselItem: React.FC<CarouselItemProps> = ({serieses, isActive}) => {
     return (
         <div className={`flex justify-between mx-auto item-center flex-nowrap  ${isActive ? '' : 'hidden'}`}>
             {serieses.map((series, index) => (
@@ -84,7 +88,7 @@ type CarouselProps = {
     slides: CollectionEntry<'series'>[];
 };
 
-const Carousel: React.FC<CarouselProps> = ({ slides }) => {
+const Carousel: React.FC<CarouselProps> = ({slides}) => {
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const goToSlide = (slideIndex: number) => {
@@ -100,7 +104,7 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
     };
 
     const groupSeriesIntoChunks = (series: CollectionEntry<'series'>[], chunkSize: number = 3): CollectionEntry<'series'>[][] => {
-        return Array.from({ length: Math.ceil(series.length / chunkSize) }, (_, i) =>
+        return Array.from({length: Math.ceil(series.length / chunkSize)}, (_, i) =>
             series.slice(i * chunkSize, i * chunkSize + chunkSize)
         );
     };
@@ -113,14 +117,15 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
             className="max-w-screen-xl mx-auto h-56 md:h-96 transition ease-in-out"
         >
             <div className="flex flex-nowrap overflow-x-scroll justify-between mx-auto items-center pt-10">
-                <CarouselControl direction="prev" onClick={goToPrevious} />
+                <CarouselControl direction="prev" onClick={goToPrevious}/>
                 <div>
-                    {groupedSeries.map((slide, index) => (<CarouselItem key={index} serieses={slide} isActive={index === currentSlide} />))}
+                    {groupedSeries.map((slide, index) => (
+                        <CarouselItem key={index} serieses={slide} isActive={index === currentSlide}/>))}
                 </div>
-                <CarouselControl direction="next" onClick={goToNext} />
+                <CarouselControl direction="next" onClick={goToNext}/>
             </div>
 
-            <CarouselIndicators totalSlides={groupedSeries.length} currentSlide={currentSlide} goToSlide={goToSlide} />
+            <CarouselIndicators totalSlides={groupedSeries.length} currentSlide={currentSlide} goToSlide={goToSlide}/>
         </div>
     );
 };

@@ -1,16 +1,16 @@
 import React from 'react';
 import SocialButtons from "../SocialButtons";
-import type { CollectionEntry } from 'astro:content';
-import { slugify } from "../../utils";
-import { SOCIAL_MEDIAS, AUTHOR } from "../../constants";
+import type {CollectionEntry} from 'astro:content';
+import {slugify} from "../../utils";
+import {AUTHOR, SOCIAL_MEDIAS} from "../../constants";
 
 interface NavigationLinkProps {
     post: CollectionEntry<'blog'>;
     direction: 'Prev' | 'Next';
 }
 
-const NavigationLink: React.FC<NavigationLinkProps> = ({ post, direction }) => {
-    const { category, title } = post.data;
+const NavigationLink: React.FC<NavigationLinkProps> = ({post, direction}) => {
+    const {category, title} = post.data;
     return (
         <a
             href={`/${slugify(category)}/posts/${slugify(post.slug)}`}
@@ -27,11 +27,11 @@ interface NavigationSectionProps {
     nextPost?: CollectionEntry<'blog'>;
 }
 
-const NavigationSection: React.FC<NavigationSectionProps> = ({ prevPost, nextPost }) => {
+const NavigationSection: React.FC<NavigationSectionProps> = ({prevPost, nextPost}) => {
     return (
         <section className="flex items-stretch justify-between gap-1">
-            {prevPost && <NavigationLink post={prevPost} direction="Prev" />}
-            {nextPost && <NavigationLink post={nextPost} direction="Next" />}
+            {prevPost && <NavigationLink post={prevPost} direction="Prev"/>}
+            {nextPost && <NavigationLink post={nextPost} direction="Next"/>}
         </section>
     );
 };
@@ -51,19 +51,21 @@ const ProfileComponent: React.FC = () => {
                 <div>
                     <div className="font-bold">{AUTHOR.name}</div>
                     <div className="text-tertiary text-sm">{AUTHOR.description}</div>
-                    <SocialButtons className="text-primary transition hover:text-secondary" socialMedias={SOCIAL_MEDIAS} />
+                    <SocialButtons
+                        className="text-primary transition hover:text-secondary"
+                        socialMedias={SOCIAL_MEDIAS}/>
                 </div>
             </div>
         </div>
     );
 };
 
-const ArticleFooter: React.FC<NavigationSectionProps> = ({ prevPost, nextPost }) => {
+const ArticleFooter: React.FC<NavigationSectionProps> = ({prevPost, nextPost}) => {
     return (
         <footer className='mt-16 mb-16'>
-            <hr />
-            <ProfileComponent />
-            <NavigationSection prevPost={prevPost} nextPost={nextPost} />
+            <hr/>
+            <ProfileComponent/>
+            <NavigationSection prevPost={prevPost} nextPost={nextPost}/>
         </footer>
     );
 };

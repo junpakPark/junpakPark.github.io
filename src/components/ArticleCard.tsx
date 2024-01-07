@@ -1,18 +1,19 @@
 import React from 'react';
-import { formatDate, slugify } from "../utils";
-import type { CollectionEntry } from 'astro:content';
+import {formatDate, slugify} from "../utils";
+import type {CollectionEntry} from 'astro:content';
 
 interface ArticleCardProps {
     article: CollectionEntry<'blog'>;
 }
 
-const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
-    const { title, thumbnail, description, date, tags } = article.data;
+const ArticleCard: React.FC<ArticleCardProps> = ({article}) => {
+    const {title, thumbnail, description, date, tags} = article.data;
 
     return (
         <div className="max-w-xs mx-auto mt-10">
-            <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
-            <a href={`/${slugify(article.data.category)}/posts/${slugify(article.slug)}`}>
+            <div
+                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
+                <a href={`/${slugify(article.data.category)}/posts/${slugify(article.slug)}`}>
                     <img
                         src={`/images/${thumbnail}`}
                         alt="Article Thumbnail"
@@ -32,7 +33,8 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
                     </a>
                     <div className="mt-4 flex flex-wrap gap-2">
                         {tags.map((tag, index) => (
-                            <a key={index} href={`/tags/${slugify(tag)}`} className="bg-gray-600 text-gray-300 text-sm font-thin px-2.5 py-0.5 rounded-full">
+                            <a key={index} href={`/tags/${slugify(tag)}`}
+                               className="bg-gray-600 text-gray-300 text-sm font-thin px-2.5 py-0.5 rounded-full">
                                 {tag}
                             </a>
                         ))}

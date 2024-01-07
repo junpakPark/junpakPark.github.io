@@ -1,21 +1,33 @@
 import React from 'react';
-import { slugify } from '../utils'
+import {slugify} from '../utils'
 
-interface TagsProps {
-    tags: string[];
+interface TagProps {
+    name: string;
+    tagCount?: number;
 }
 
-const TagList: React.FC<TagsProps> = ({ tags }) => {
+const Tag: React.FC<TagProps> = ({name, tagCount}) => {
     return (
-        <div className="flex mt-4 justify-center">
+        <a
+            href={`/tags/${slugify(name)}`}
+            className="px-4 m-1 text-purple-800 text-md font-thin bg-purple-100 rounded-full hover:text-purple-100 hover:bg-purple-500 transition ease-in-out"
+        >
+            {name} {tagCount != null && <span> ({tagCount})</span>}
+        </a>
+
+    );
+};
+
+interface TagListProps {
+    tags: string[];
+    tagCounts?: { [tag: string]: number };
+}
+
+const TagList: React.FC<TagListProps> = ({tags, tagCounts}) => {
+    return (
+        <div className="flex flex-wrap">
             {tags.map((tag, index) => (
-                <a
-                    key={index}
-                    href={`/tags/${slugify(tag)}`}
-                    className="px-2 py-1 border text-white rounded-full text-xs mr-2"
-                >
-                    {tag}
-                </a>
+                <Tag key={index} name={tag} tagCount={tagCounts ? tagCounts[tag] : undefined} />
             ))}
         </div>
     );

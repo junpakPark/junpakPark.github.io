@@ -1,39 +1,39 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import PostList from "../../components/PostList";
-import { slugify } from "../../utils";
+import {slugify} from "../../utils";
 
-import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
+import {getCollection} from "astro:content";
+import type {CollectionEntry} from "astro:content";
 
 export async function getStaticPaths() {
-  const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
-  const allTags = [...new Set(allPosts.map(post => post.data.tags).flat())];
+    const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+    const allTags = [...new Set(allPosts.map(post => post.data.tags).flat())];
 
-  return allTags.map(tag => {
-    const tagedPosts = allPosts
-      .filter(post => post.data.tags.includes(tag))
-      .sort(
-        (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-          b.data.date.valueOf() - a.data.date.valueOf()
-      );
-      
-    return {
-      params: {
-        slug: slugify(tag),
-      },
-      props: {
-        tag,
-        tagedPosts,
-      },
-    };
-  });
+    return allTags.map(tag => {
+        const tagedPosts = allPosts
+            .filter(post => post.data.tags.includes(tag))
+            .sort(
+                (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+                    b.data.date.valueOf() - a.data.date.valueOf()
+            );
+
+        return {
+            params: {
+                slug: slugify(tag),
+            },
+            props: {
+                tag,
+                tagedPosts,
+            },
+        };
+    });
 }
-const { slug } = Astro.params;
-const { tag, tagedPosts } = Astro.props;
+const {slug} = Astro.params;
+const {tag, tagedPosts} = Astro.props;
 ---
 
 <MainLayout>
-  <h1>Posts about {tag}</h1>
-  <PostList posts={tagedPosts} />
+    <h1>Posts about {tag}</h1>
+    <PostList posts={tagedPosts}/>
 </MainLayout>

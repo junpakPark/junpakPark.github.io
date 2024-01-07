@@ -1,57 +1,45 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
-import { slugify } from "../../utils";
-
-import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
+import TagList from "../../components/TagList";
+import {getCollection} from "astro:content";
+import type {CollectionEntry} from "astro:content";
 
 type TagCounts = {
-  [tag: string]: number;
+    [tag: string]: number;
 };
 
 const countTags = (posts: CollectionEntry<"blog">[]): TagCounts =>
-  posts.reduce((acc: TagCounts, post) => {
-    post.data.tags.forEach(tag => {
-      acc[tag] = (acc[tag] || 0) + 1;
-    });
-    return acc;
-  }, {});
+    posts.reduce((acc: TagCounts, post) => {
+        post.data.tags.forEach(tag => {
+            acc[tag] = (acc[tag] || 0) + 1;
+        });
+        return acc;
+    }, {});
 
 const getTags = async (): Promise<{
-  allTags: string[];
-  tagCounts: TagCounts;
+    allTags: string[];
+    tagCounts: TagCounts;
 }> => {
-  const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+    const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
 
-  const tagCounts = countTags(allPosts);
-  const allTags = Object.keys(tagCounts).sort(
-    (a, b) => tagCounts[b] - tagCounts[a]
-  );
+    const tagCounts = countTags(allPosts);
+    const allTags = Object.keys(tagCounts).sort(
+        (a, b) => tagCounts[b] - tagCounts[a]
+    );
 
-  return { allTags, tagCounts };
+    return {allTags, tagCounts};
 };
 
-const { allTags, tagCounts } = await getTags();
+const {allTags, tagCounts} = await getTags();
 ---
 
 <MainLayout>
-  <div class="max-w-screen-xl mx-auto">
-    <main class="mx-auto p-[4rem] md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]">
-      <h1>There are {allTags.length} tags</h1>
-      <ul class="mt-4 flex flex-wrap">
-        {
-          allTags.map(tag => (
-            <li class="m-2">
-              <a
-                href={`/tags/${slugify(tag)}`}
-                class="px-4 py-1 border text-white bg-gray-500 rounded-full text-md"
-              >
-                {tag} <span>{tagCounts[tag]}</span>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </main>
-  </div>
+    <div class="max-w-screen-xl mx-auto">
+        <main class="mx-auto p-[4rem] md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]">
+            <div class="space-y-4">
+                <h1>There are {allTags.length} tags</h1>
+                <TagList tags={allTags} tagCounts={tagCounts}/>
+            </div>
+        </main>
+    </div>
 </MainLayout>

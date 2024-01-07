@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { CATEGORIES } from "../constants";
+import React, {useEffect, useState} from 'react';
+import {CATEGORIES} from "../constants";
 import IconButton from './IconButton';
 
 
@@ -36,9 +36,10 @@ interface CategoriesProps {
     type: CategoriesType;
 }
 
-const Categories: React.FC<CategoriesProps> = ({ categories, type }) => {
+const Categories: React.FC<CategoriesProps> = ({categories, type}) => {
     return (
-        <nav className={`leading-6 ml-auto hs-collapse overflow-hidden ${type} transition-all duration-300 basis-full grow sm:block`}>
+        <nav
+            className={`leading-6 ml-auto hs-collapse overflow-hidden ${type} transition-all duration-300 basis-full grow sm:block`}>
             <ul className="flex flex-col gap-8 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
                 {categories.map((category) => (
                     <li key={category.url}>
@@ -76,7 +77,7 @@ const FeatureButtons: React.FC = () => {
         >
             {features.map((feature) => (
                 <a href={`/${feature.name}`}>
-                    <IconButton key={feature.name} iconPath={feature.path} width={20} height={20} />
+                    <IconButton key={feature.name} iconPath={feature.path} width={20} height={20}/>
                 </a>
 
             ))}
@@ -88,12 +89,15 @@ interface MobileMenuButtonProps {
     onClick: () => void;
 }
 
-const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({ onClick }) => {
+const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({onClick}) => {
     return (
-        <button onClick={onClick} type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+        <button onClick={onClick} type="button"
+                className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
             <span className="sr-only">Open main menu</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 17.5C20.3852 17.5002 20.7556 17.6486 21.0344 17.9144C21.3132 18.1802 21.479 18.5431 21.4975 18.9279C21.516 19.3127 21.3858 19.6898 21.1338 19.9812C20.8818 20.2726 20.5274 20.4558 20.144 20.493L20 20.5H4C3.61478 20.4998 3.24441 20.3514 2.96561 20.0856C2.68682 19.8198 2.52099 19.4569 2.50248 19.0721C2.48396 18.6873 2.61419 18.3102 2.86618 18.0188C3.11816 17.7274 3.47258 17.5442 3.856 17.507L4 17.5H20ZM20 10.5C20.3978 10.5 20.7794 10.658 21.0607 10.9393C21.342 11.2206 21.5 11.6022 21.5 12C21.5 12.3978 21.342 12.7794 21.0607 13.0607C20.7794 13.342 20.3978 13.5 20 13.5H4C3.60218 13.5 3.22064 13.342 2.93934 13.0607C2.65804 12.7794 2.5 12.3978 2.5 12C2.5 11.6022 2.65804 11.2206 2.93934 10.9393C3.22064 10.658 3.60218 10.5 4 10.5H20ZM20 3.5C20.3978 3.5 20.7794 3.65804 21.0607 3.93934C21.342 4.22064 21.5 4.60218 21.5 5C21.5 5.39782 21.342 5.77936 21.0607 6.06066C20.7794 6.34196 20.3978 6.5 20 6.5H4C3.60218 6.5 3.22064 6.34196 2.93934 6.06066C2.65804 5.77936 2.5 5.39782 2.5 5C2.5 4.60218 2.65804 4.22064 2.93934 3.93934C3.22064 3.65804 3.60218 3.5 4 3.5H20Z" fill="#464646" />
+                <path
+                    d="M20 17.5C20.3852 17.5002 20.7556 17.6486 21.0344 17.9144C21.3132 18.1802 21.479 18.5431 21.4975 18.9279C21.516 19.3127 21.3858 19.6898 21.1338 19.9812C20.8818 20.2726 20.5274 20.4558 20.144 20.493L20 20.5H4C3.61478 20.4998 3.24441 20.3514 2.96561 20.0856C2.68682 19.8198 2.52099 19.4569 2.50248 19.0721C2.48396 18.6873 2.61419 18.3102 2.86618 18.0188C3.11816 17.7274 3.47258 17.5442 3.856 17.507L4 17.5H20ZM20 10.5C20.3978 10.5 20.7794 10.658 21.0607 10.9393C21.342 11.2206 21.5 11.6022 21.5 12C21.5 12.3978 21.342 12.7794 21.0607 13.0607C20.7794 13.342 20.3978 13.5 20 13.5H4C3.60218 13.5 3.22064 13.342 2.93934 13.0607C2.65804 12.7794 2.5 12.3978 2.5 12C2.5 11.6022 2.65804 11.2206 2.93934 10.9393C3.22064 10.658 3.60218 10.5 4 10.5H20ZM20 3.5C20.3978 3.5 20.7794 3.65804 21.0607 3.93934C21.342 4.22064 21.5 4.60218 21.5 5C21.5 5.39782 21.342 5.77936 21.0607 6.06066C20.7794 6.34196 20.3978 6.5 20 6.5H4C3.60218 6.5 3.22064 6.34196 2.93934 6.06066C2.65804 5.77936 2.5 5.39782 2.5 5C2.5 4.60218 2.65804 4.22064 2.93934 3.93934C3.22064 3.65804 3.60218 3.5 4 3.5H20Z"
+                    fill="#464646"/>
             </svg>
         </button>
     );
@@ -127,22 +131,22 @@ const Header: React.FC = () => {
                 className="sticky top-0 left-0 w-full z-10 backdrop-blur transition-colors duration-500 bg-white border-gray-200 "
             >
                 <nav className="flex flex-wrap justify-between items-center h-12 mx-auto px-8 max-w-screen-xl">
-                    <Logo />
+                    <Logo/>
                     <div className="flex flex-nowrap items-center">
-                        <Categories categories={CATEGORIES} type={CategoriesType.Normal} />
-                        <FeatureButtons />
-                        <MobileMenuButton onClick={handleToggle} />
+                        <Categories categories={CATEGORIES} type={CategoriesType.Normal}/>
+                        <FeatureButtons/>
+                        <MobileMenuButton onClick={handleToggle}/>
                     </div>
                     <div
                         className={`w-full h-screen absolute top-12 left-0 bg-white flex-col flex-nowrap flex ${onToggle ? 'block' : 'hidden'}`}
                     >
-                        <Categories categories={CATEGORIES} type={CategoriesType.Toggle} />
+                        <Categories categories={CATEGORIES} type={CategoriesType.Toggle}/>
                     </div>
                 </nav>
             </header>
             <div
                 className="fixed top-12 left-0 h-1 z-50 bg-gradient-to-r from-pink-100 to-purple-200 rounded-tr-sm"
-                style={{ width: `${width}%` }}
+                style={{width: `${width}%`}}
             />
         </>
     );

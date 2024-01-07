@@ -6,6 +6,31 @@ interface PostProps {
     post: CollectionEntry<'blog'>;
 }
 
+interface TagListProps {
+    tags: string[];
+    limitCount: number;
+}
+
+const TagList: React.FC<TagListProps> = ({ tags, limitCount }) => {
+
+
+    return (
+        <>
+            {tags.slice(0, limitCount).map((tag, index) => (
+                <span key={index} className="px-2 py-0.5 border text-white rounded-full text-xs m-1">
+                    {tag}
+                </span>
+            ))}
+            {tags.length > limitCount && (
+                <span className="pr-2 py-0.5 border border-transparent text-white rounded-full text-xs m-1">
+                    외 {tags.length - limitCount}개
+                </span>
+            )}
+        </>
+    )
+};
+
+
 const PostCard: React.FC<PostProps> = ({ post }) => {
     const { title, thumbnail, description, date, tags } = post.data;
 
@@ -19,13 +44,8 @@ const PostCard: React.FC<PostProps> = ({ post }) => {
                     <h2 className="text-md font-semibold sm:text-xl">{title}</h2>
                     <p className="text-sm font-thin">{formatDate(date)}</p>
                     <p className="text-sm font-light">{description}</p>
-                    <div className="flex mt-4 justify-center">
-                        {tags.map((tag, index) => (
-                            <span
-                                key={index}
-                                className="px-2 py-0.5 border text-white rounded-full text-xs mr-2"
-                            >{tag}</span>
-                        ))}
+                    <div className="flex flex-wrap mt-4 justify-center">
+                        <TagList tags={tags} limitCount={3} />
                     </div>
                 </div>
             </a>

@@ -19,15 +19,37 @@ const shuffledSeries: CollectionEntry<"series">[] = (
 <MainLayout>
   <div
     class="bg-gradient-to-l from-blue-200 via-purple-200 to-pink-200 relative w-full h-56 md:h-96"
-    style={{ backgroundImage: `url('/images/bg.jpg')`, backgroundSize: 'cover' }}
+    style={{
+      backgroundImage: `url('/images/bg.jpg')`,
+      backgroundSize: "cover",
+    }}
   >
     <Carousel client:load slides={shuffledSeries} />
   </div>
 
-  <div class="my-8 max-w-screen-xl mx-auto">
+  <div class="my-8 max-w-screen-xl mx-auto flex-col">
     <h2 class="p-4 text-gray-700 text-2xl font-semibold">최근 포스팅 게시물</h2>
     <hr class="p-4" />
-    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="flex justify-end px-2 pb-2">
+      <a class="inline-flex h-6 items-center text-gray-700" href="/tech">
+        전체 게시글 보러가기
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="ml-1 h-6 w-6"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17.5 12h-15m11.667-4l3.333 4-3.333-4zm3.333 4l-3.333 4 3.333-4z"
+          ></path>
+        </svg>
+      </a>
+    </div>
+    <div class="grid gap-4 grid-cols-1 overflow-x-scroll sm:grid-cols-2 lg:grid-cols-3">
       {recentPost.map(post => <PostCard post={post} />)}
     </div>
   </div>

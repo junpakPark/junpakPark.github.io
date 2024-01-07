@@ -54,11 +54,12 @@ type CarouselItemProps = {
 
 const CarouselItem: React.FC<CarouselItemProps> = ({ serieses, isActive }) => {
     return (
-        <div className={`grid gap-2 lg:gap-8 grid-cols-3 ${isActive ? '' : 'hidden'}`}>
+        <div className={`flex justify-between mx-auto item-center flex-nowrap  ${isActive ? '' : 'hidden'}`}>
             {serieses.map((series, index) => (
-                <div
+                <a
+                    href={`/series/${slugify(series.data.title)}`}
                     key={index}
-                    className="flex items-center justify-center w-64 mx-auto h-36 md:h-72 mt-10 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                    className="flex flex-col justify-center w-64 mx-2 md:mx-4 lg:mx-8 h-36 md:h-72 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
                     style={{
                         background: 'rgba(100, 0, 40, 0.1)',
                         borderRadius: '16px',
@@ -68,13 +69,11 @@ const CarouselItem: React.FC<CarouselItemProps> = ({ serieses, isActive }) => {
                         border: '1px solid rgba(255, 255, 255, 0.1)'
                     }}
                 >
-                    <a href={`/series/${slugify(series.data.title)}`}>
-                        <h2 className="text-[#F4F4FF] text-center text-3xl font-bold mb-2">{series.data.title}</h2>
-                        <p className="text-[#F4F4FF] mt-4 text-sm font-thin text-center">
-                            {series.data.description}
-                        </p>
-                    </a>
-                </div>
+                    <h2 className="text-[#F4F4FF] text-center text-3xl font-bold mb-2">{series.data.title}</h2>
+                    <p className="text-[#F4F4FF] mt-4 text-sm font-thin text-center">
+                        {series.data.description}
+                    </p>
+                </a>
             ))}
         </div>
     );
@@ -111,14 +110,13 @@ const Carousel: React.FC<CarouselProps> = ({ slides }) => {
     return (
         <div
             data-carousel="slide"
-            className="max-w-screen-xl mx-auto h-56 overflow-x-scroll rounded-lg md:h-96 transition ease-in-out"
+            className="max-w-screen-xl mx-auto h-56 md:h-96 transition ease-in-out"
         >
-            <div className="flex flex-row mx-auto justify-center lg:justify-between items-center">
+            <div className="flex flex-nowrap overflow-x-scroll justify-between mx-auto items-center pt-10">
                 <CarouselControl direction="prev" onClick={goToPrevious} />
                 <div>
                     {groupedSeries.map((slide, index) => (<CarouselItem key={index} serieses={slide} isActive={index === currentSlide} />))}
                 </div>
-
                 <CarouselControl direction="next" onClick={goToNext} />
             </div>
 

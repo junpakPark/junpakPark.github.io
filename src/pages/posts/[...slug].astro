@@ -1,5 +1,5 @@
 ---
-import {slugify} from "../../utils";
+import {slugify, processPosts} from "../../utils";
 import "../../styles/mdx.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
@@ -11,15 +11,11 @@ import FloatingBar from "../../components/article/FloatingBar";
 import ArticleFooter from "../../components/article/ArticleFooter";
 import ContentLayout from "../../layouts/ContentLayout.astro";
 
-
-export async function getStaticPaths() {
+export const getStaticPaths = async (): Promise<any[]> => {
     const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
-    const sortedPosts = allPosts.sort(
-        (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-            b.data.date.valueOf() - a.data.date.valueOf()
-    );
+    const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
 
-    return sortedPosts.map((post, index, posts) => ({
+    return processedPosts.map((post, index, posts) => ({
         params: {
             slug: slugify(post.slug),
         },
@@ -30,6 +26,7 @@ export async function getStaticPaths() {
         },
     }));
 }
+
 const {currentPost, prevPost, nextPost} = Astro.props;
 const {Content, headings} = await currentPost.render();
 ---

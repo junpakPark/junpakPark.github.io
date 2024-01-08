@@ -1,24 +1,20 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PostList from "../../components/PostList";
-import {slugify} from "../../utils";
+import {getCollection, type CollectionEntry} from "astro:content";
+import {processPosts, slugify} from "../../utils";
 
-import {getCollection} from "astro:content";
-import type {CollectionEntry} from "astro:content";
+import PostList from "../../components/PostList";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import ContentLayout from "../../layouts/ContentLayout.astro";
 
-export async function getStaticPaths() {
-    const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
-    const allTags = [...new Set(allPosts.map(post => post.data.tags).flat())];
+export const getStaticPaths = async (): Promise<any[]> => {
+    const allPosts: CollectionEntry<'blog'>[] = await getCollection("blog");
+    const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
+    const uniqueTags = [...new Set(processedPosts.flatMap(post => post.data.tags))];
 
-    return allTags.map(tag => {
-        const tagedPosts = allPosts
-            .filter(post => post.data.tags.includes(tag))
-            .sort(
-                (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-                    b.data.date.valueOf() - a.data.date.valueOf()
-            );
+    return uniqueTags.map(tag => {
+        const postsWithTag = processedPosts.filter(post => post.data.tags.includes(tag));
+        const taggedPosts = processPosts(postsWithTag);
 
         return {
             params: {
@@ -26,25 +22,26 @@ export async function getStaticPaths() {
             },
             props: {
                 tag,
-                tagedPosts,
+                taggedPosts,
             },
         };
     });
-}
-const {slug} = Astro.params;
-const {tag, tagedPosts} = Astro.props;
+};
+
+const {tag, taggedPosts} = Astro.props;
+
 ---
 <BaseLayout>
     <MainLayout>
         <ContentLayout>
             <div class="space-y-4">
                 <h1 class="text-2xl font-semibold">
-                    <span class="text-purple-600"> {tagedPosts.length} </span>
+                    <span class="text-purple-600"> {taggedPosts.length} </span>
                     Posts about
                     <span class="text-purple-600"> {tag} </span>
                     tags!
                 </h1>
-                <PostList posts={tagedPosts}/>
+                <PostList posts={taggedPosts}/>
             </div>
         </ContentLayout>
     </MainLayout>

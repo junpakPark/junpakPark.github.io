@@ -1,10 +1,12 @@
 ---
+link: "tech"
 title: "Exploring JSX in React (5)"
-category: "tech"
 date: "2024-01-05"
-thumbnail: "thumbnail.jpg"
-tags: ["React", "JSX", "Frontend"]
+author: "준팍"
+image: "thumbnail.jpg"
 description: 오늘은 jsx에 대해 알아보겠습니다. 근데 이제 리액트를 곁들인.
+published: true
+tags: ["React", "JSX", "Frontend"]
 ---
 
 JSX, or JavaScript XML, is a syntax extension for JavaScript often used with React to describe what the UI should look like. By using JSX, you can write HTML structures in the same file as your JavaScript code. This integration of markup with logic makes building React components more intuitive and accessible.

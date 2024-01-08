@@ -1,8 +1,10 @@
 ---
-import MainLayout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import ContentLayout from "../../layouts/ContentLayout.astro";
 import TagList from "../../components/TagList";
-import {getCollection} from "astro:content";
-import type {CollectionEntry} from "astro:content";
+import {getCollection, type CollectionEntry} from "astro:content";
+import {processPosts} from "../../utils";
 
 type TagCounts = {
     [tag: string]: number;
@@ -21,8 +23,9 @@ const getTags = async (): Promise<{
     tagCounts: TagCounts;
 }> => {
     const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+    const processedPosts = processPosts(allPosts);
 
-    const tagCounts = countTags(allPosts);
+    const tagCounts = countTags(processedPosts);
     const allTags = Object.keys(tagCounts).sort(
         (a, b) => tagCounts[b] - tagCounts[a]
     );
@@ -33,12 +36,9 @@ const getTags = async (): Promise<{
 const {allTags, tagCounts} = await getTags();
 ---
 
-<MainLayout>
-    <div
-            class="max-w-screen-xl mx-auto"
-            style="min-height: calc(100vh - 188px)"
-    >
-        <main class="mx-auto p-[4rem] md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]">
+<BaseLayout>
+    <MainLayout>
+        <ContentLayout>
             <div class="space-y-4">
                 <h1 class="text-2xl font-semibold">
                     There are <span class="text-purple-600">{allTags.length}</span> tags!
@@ -46,6 +46,6 @@ const {allTags, tagCounts} = await getTags();
                 <TagList tags={allTags} tagCounts={tagCounts}/>
                 <hr/>
             </div>
-        </main>
-    </div>
-</MainLayout>
+        </ContentLayout>
+    </MainLayout>
+</BaseLayout>

@@ -1,11 +1,6 @@
 import React from 'react'
 import IconButton from './IconButton';
-
-export interface SocialMedia {
-    name: string;
-    url: string;
-    d: string;
-}
+import type {SocialMedia} from "../constants.ts";
 
 interface SocialButtonsProps {
     socialMedias: SocialMedia[];

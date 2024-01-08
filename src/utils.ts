@@ -2,11 +2,12 @@ const slugify = (text: string): string => {
     return text.toString()
         .toLowerCase()
         .replace(/\s+/g, '-')
-        .replace(/[^\w-]+/g, '')
+        .replace(/[^a-zA-Z0-9가-힣-]+/g, '')
         .replace(/--+/g, '-')
         .replace(/^-+/, '')
         .replace(/-+$/, '');
 }
+
 
 const formatDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = {

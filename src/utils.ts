@@ -21,10 +21,18 @@ const formatDate = (date: Date): string => {
     return new Date(date).toLocaleDateString(undefined, options);
 };
 
+type SortOption = keyof typeof SortOptions;
+
+const SortOptions = {
+    Date: (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+    Random: () => Math.random() - 0.5,
+    None: () => 0
+}
+
 interface PostFilterOptions {
     filterOutUnpublished?: boolean;
     filterOutFuturePosts?: boolean;
-    sortByDate?: boolean;
+    sortOption?: SortOption;
     limit?: number;
 }
 
@@ -33,20 +41,19 @@ const processPosts = (
     {
         filterOutUnpublished = true,
         filterOutFuturePosts = true,
-        sortByDate = true,
+        sortOption = 'Date',
         limit
     }: PostFilterOptions = {}
 ): CollectionEntry<'blog'>[] => {
     const isUnpublished = (post: CollectionEntry<'blog'>) => filterOutUnpublished && !post.data.published;
     const isFuturePost = (post: CollectionEntry<'blog'>) => filterOutFuturePosts && new Date(post.data.date) > new Date();
-    const sortPostsByDate = (a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
 
-    const processedPosts = posts.filter(post => !(isUnpublished(post) || isFuturePost(post)))
-        .sort(sortByDate ? sortPostsByDate : () => Math.random() - 0.5);
 
-    return limit ? processedPosts.slice(0, limit) : processedPosts;
+    const filteredPosts = posts.filter(post => !(isUnpublished(post) || isFuturePost(post)));
+    const sortedPosts = filteredPosts.sort(SortOptions[sortOption]);
+
+    return limit ? sortedPosts.slice(0, limit) : sortedPosts;
 };
-
 
 
 const calculateReadingTime = (text: string): string => {

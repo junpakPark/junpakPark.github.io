@@ -63,7 +63,7 @@ const CarouselItem: React.FC<CarouselItemProps> = ({serieses, isActive}) => {
                 <a
                     href={`/series/${slugify(series.data.title)}`}
                     key={index}
-                    className="flex flex-col justify-center w-64 mx-2 md:mx-4 lg:mx-8 h-36 md:h-72 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                    className="flex flex-col justify-center w-64 my-0 mx-2 md:mx-4 lg:mx-8 h-36 md:h-72 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
                     style={{
                         background: 'rgba(100, 0, 40, 0.1)',
                         borderRadius: '16px',
@@ -73,8 +73,8 @@ const CarouselItem: React.FC<CarouselItemProps> = ({serieses, isActive}) => {
                         border: '1px solid rgba(255, 255, 255, 0.1)'
                     }}
                 >
-                    <h2 className="text-[#F4F4FF] text-center text-3xl font-bold mb-2">{series.data.title}</h2>
-                    <p className="text-[#F4F4FF] mt-4 text-sm font-thin text-center">
+                    <h2 className="text-[#F4F4FF] text-center text-xl mb-1 md:text-2xl mx-auto whitespace-pre-wrap break-keep w-48 font-bold md:mb-2">{series.data.title}</h2>
+                    <p className="text-[#F4F4FF] md:mt-4 text-sm font-thin text-center whitespace-pre-wrap break-keep w-48 mx-auto">
                         {series.data.description}
                     </p>
                 </a>

@@ -5,9 +5,10 @@ import TagList from "./TagList.tsx";
 
 interface PostItemProps {
     post: CollectionEntry<'blog'>;
+    index?: number;
 }
 
-const PostItem: React.FC<PostItemProps> = ({post}) => {
+const PostItem: React.FC<PostItemProps> = ({post, index}) => {
     const {title, date, tags} = post.data;
 
     return (
@@ -15,7 +16,7 @@ const PostItem: React.FC<PostItemProps> = ({post}) => {
             <a
                 href={`/posts/${slugify(post.slug)}`}
             >
-                <h2 className="mb-8 text-4xl font-bold text-gray-700">{title}</h2>
+                <h2 className="mb-8 text-4xl font-bold text-gray-700">{index !== undefined ? `(${index + 1})` : null} {title}</h2>
 
                 <p className='font-light'>{truncateText(post.body, 200)}</p>
                 <div className='text-sm font-light text-right'>
@@ -32,12 +33,13 @@ const PostItem: React.FC<PostItemProps> = ({post}) => {
 
 interface PostListProps {
     posts: CollectionEntry<'blog'>[];
+    isIndexed: boolean;
 }
 
-const PostList: React.FC<PostListProps> = ({posts}) => {
+const PostList: React.FC<PostListProps> = ({posts, isIndexed}) => {
     return (
         <ul className="flex flex-col">
-            {posts.map((post) => <PostItem key={post.slug} post={post} />)}
+            {posts.map((post, index) => <PostItem key={post.slug} index={isIndexed ? index : undefined} post={post}/>)}
         </ul>
     );
 }

@@ -40,8 +40,9 @@ const Links: React.FC<LinksProps> = ({links, type}) => {
                 {links.map((link) => (
                     <li key={`/${slugify(link)}`}>
                         <a
-                            href={`/${slugify(link)}`}>
+                            href={`/${slugify(link)}`}
                             className="text-gray-700 hover:underline"
+                        >
                             {link.toUpperCase()}
                         </a>
                     </li>

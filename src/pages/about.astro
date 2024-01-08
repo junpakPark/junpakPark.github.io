@@ -1,7 +1,13 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 import MainLayout from "../layouts/MainLayout.astro";
+import ContentLayout from "../layouts/ContentLayout.astro";
 ---
 
-<MainLayout>
-  <h1>about</h1>
-</MainLayout>
+<BaseLayout>
+    <MainLayout>
+        <ContentLayout>
+            <h1>about</h1>
+        </ContentLayout>
+    </MainLayout>
+</BaseLayout>

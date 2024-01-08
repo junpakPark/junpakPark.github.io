@@ -8,12 +8,12 @@ interface PostItemProps {
 }
 
 const PostItem: React.FC<PostItemProps> = ({post}) => {
-    const {title, category, date, tags} = post.data;
+    const {title, date, tags} = post.data;
 
     return (
         <li className="py-4 text-gray-400">
             <a
-                href={`/${slugify(category)}/posts/${slugify(post.slug)}`}
+                href={`/posts/${slugify(post.slug)}`}
             >
                 <h2 className="mb-8 text-4xl font-bold text-gray-700">{title}</h2>
 

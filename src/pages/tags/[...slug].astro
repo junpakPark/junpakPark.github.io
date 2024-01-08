@@ -1,10 +1,12 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostList from "../../components/PostList";
 import {slugify} from "../../utils";
 
 import {getCollection} from "astro:content";
 import type {CollectionEntry} from "astro:content";
+import MainLayout from "../../layouts/MainLayout.astro";
+import ContentLayout from "../../layouts/ContentLayout.astro";
 
 export async function getStaticPaths() {
     const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
@@ -32,13 +34,9 @@ export async function getStaticPaths() {
 const {slug} = Astro.params;
 const {tag, tagedPosts} = Astro.props;
 ---
-
-<MainLayout>
-    <div
-            class="max-w-screen-xl mx-auto"
-            style="min-height: calc(100vh - 188px)"
-    >
-        <main class="mx-auto p-[4rem] md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]">
+<BaseLayout>
+    <MainLayout>
+        <ContentLayout>
             <div class="space-y-4">
                 <h1 class="text-2xl font-semibold">
                     <span class="text-purple-600"> {tagedPosts.length} </span>
@@ -47,10 +45,7 @@ const {tag, tagedPosts} = Astro.props;
                     tags!
                 </h1>
                 <PostList posts={tagedPosts}/>
-
             </div>
-        </main>
-    </div>
-
-
-</MainLayout>
+        </ContentLayout>
+    </MainLayout>
+</BaseLayout>

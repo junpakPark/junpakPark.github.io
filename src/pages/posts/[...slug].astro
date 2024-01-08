@@ -1,0 +1,50 @@
+---
+import {slugify} from "../../utils";
+import "../../styles/mdx.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+
+import {getCollection} from "astro:content";
+import type {CollectionEntry} from "astro:content";
+import ArticleHeader from "../../components/article/ArticleHeader";
+import FloatingBar from "../../components/article/FloatingBar";
+import ArticleFooter from "../../components/article/ArticleFooter";
+import ContentLayout from "../../layouts/ContentLayout.astro";
+
+
+export async function getStaticPaths() {
+    const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+    const sortedPosts = allPosts.sort(
+        (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+            b.data.date.valueOf() - a.data.date.valueOf()
+    );
+
+    return sortedPosts.map((post, index, posts) => ({
+        params: {
+            slug: slugify(post.slug),
+        },
+        props: {
+            currentPost: post,
+            prevPost: posts[index + 1],
+            nextPost: posts[index - 1],
+        },
+    }));
+}
+const {currentPost, prevPost, nextPost} = Astro.props;
+const {Content, headings} = await currentPost.render();
+---
+
+<BaseLayout>
+    <MainLayout>
+        <ContentLayout>
+            <article>
+                <ArticleHeader article={currentPost}/>
+                <div class="mdx">
+                    <Content/>
+                </div>
+                <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
+            </article>
+        </ContentLayout>
+        <FloatingBar headings={headings} client:load/>
+    </MainLayout>
+</BaseLayout>

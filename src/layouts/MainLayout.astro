@@ -1,27 +1,10 @@
 ---
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../constants";
 
-const { title = "junpak" } = Astro.props;
-
-interface Props {
-  title?: string;
-}
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={SITE_DESCRIPTION} />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title} | {SITE_TITLE}</title>
-  </head>
-  <body >
-    <Header client:load />
-      <slot />
-    <Footer />
-  </body>
-</html>
+<main
+        class="max-w-screen-xl mx-auto"
+        style="min-height: calc(100vh - 188px)"
+>
+    <slot/>
+</main>

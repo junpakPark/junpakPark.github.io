@@ -10,10 +10,10 @@ interface NavigationLinkProps {
 }
 
 const NavigationLink: React.FC<NavigationLinkProps> = ({post, direction}) => {
-    const {category, title} = post.data;
+    const { title} = post.data;
     return (
         <a
-            href={`/${slugify(category)}/posts/${slugify(post.slug)}`}
+            href={`/posts/${slugify(post.slug)}`}
             className={`group flex flex-col gap-1 ${direction === 'Next' ? 'ml-auto text-right' : ''} px-8 py-2 rounded-lg border border-transparent text-gray-700 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none`}
         >
             {direction}

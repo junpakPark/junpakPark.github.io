@@ -1,13 +1,29 @@
 ---
+import {getCollection, type CollectionEntry} from "astro:content";
+import {processPosts} from "../../utils";
+
+import PostList from "../../components/PostList";
+import Categories from "../../components/Categories";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
-import ContentLayout from "../../layouts/ContentLayout.astro";
----
 
+const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+const allCategories: CollectionEntry<"category">[] = await getCollection("category");
+const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
+---
 <BaseLayout>
-  <MainLayout>
-    <ContentLayout>
-      <h1>TECH</h1>
-    </ContentLayout>
-  </MainLayout>
+    <MainLayout>
+        <div class="flex justify-around">
+            <div class="w-[16rem] hidden lg:block">
+                <Categories categories={allCategories} posts={processedPosts}/>
+            </div>
+            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
+                <h1 class="text-2xl font-semibold">
+                    전체 글 <span class="text-xl text-purple-600"> ({processedPosts.length}) </span>
+                </h1>
+                <PostList posts={processedPosts}/>
+            </article>
+            <div class="w-[16rem] hidden xl:block"></div>
+        </div>
+    </MainLayout>
 </BaseLayout>

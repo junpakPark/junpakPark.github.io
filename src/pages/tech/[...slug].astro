@@ -9,7 +9,8 @@ import type {CollectionEntry} from "astro:content";
 import ArticleHeader from "../../components/article/ArticleHeader";
 import FloatingBar from "../../components/article/FloatingBar";
 import ArticleFooter from "../../components/article/ArticleFooter";
-import ContentLayout from "../../layouts/ContentLayout.astro";
+
+
 
 export const getStaticPaths = async (): Promise<any[]> => {
     const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
@@ -33,15 +34,19 @@ const {Content, headings} = await currentPost.render();
 
 <BaseLayout>
     <MainLayout>
-        <ContentLayout>
-            <article>
+        <div class="flex justify-around">
+            <div class="w-[16rem] hidden lg:block">
+            </div>
+            <article class="mx-auto md:w-[48rem] p-[4rem]">
                 <ArticleHeader article={currentPost}/>
                 <div class="mdx">
                     <Content/>
                 </div>
                 <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
             </article>
-        </ContentLayout>
-        <FloatingBar headings={headings} client:load/>
+            <div class="w-[16rem] hidden xl:block">
+                <FloatingBar headings={headings} client:load/>
+            </div>
+        </div>
     </MainLayout>
 </BaseLayout>

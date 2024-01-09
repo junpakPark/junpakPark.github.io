@@ -128,7 +128,7 @@ const Header: React.FC = () => {
                 </nav>
             </header>
             <div
-                className="fixed top-12 left-0 h-1 z-50 bg-gradient-to-r from-pink-100 to-purple-200 rounded-tr-sm"
+                className="fixed top-12 left-0 h-1 z-50 bg-gradient-to-r from-pink-100 to-purple-600 rounded-tr-sm"
                 style={{width: `${width}%`}}
             />
         </>

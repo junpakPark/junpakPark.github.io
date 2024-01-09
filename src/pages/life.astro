@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MainLayout from "../layouts/MainLayout.astro";
-import ContentLayout from "../layouts/ContentLayout.astro";
 ---
 
 <BaseLayout>
     <MainLayout>
-        <ContentLayout>
-            <h1>LIFE</h1>
-        </ContentLayout>
+        <div class="flex justify-around">
+            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
+                <h1>LIFE</h1>
+            </article>
+        </div>
     </MainLayout>
 </BaseLayout>

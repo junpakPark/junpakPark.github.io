@@ -11,7 +11,7 @@ const CarouselControl: React.FC<CarouselControlProps> = ({direction, onClick}) =
     return (
         <button
             type="button"
-            className={`${direction === 'prev' ? 'start-0' : 'end-0'} hidden lg:block cursor-pointer shadow-inner drop-shadow-xl rounded-full text-white bg-[#640028]/5 `}
+            className={`${direction === 'prev' ? 'start-0' : 'end-0'} hidden lg:block cursor-pointer shadow-inner drop-shadow-xl rounded-full text-white bg-[#640028]/5 hover:bg-[#640028]/15 `}
             onClick={onClick}
             aria-label={direction === 'prev' ? 'Previous' : 'Next'}
         >
@@ -63,21 +63,17 @@ const CarouselItem: React.FC<CarouselItemProps> = ({serieses, isActive}) => {
                 <a
                     key={index}
                     href={`/series/${slugify(series.data.title)}`}
-                    className="relative rounded-lg border border-solid border-gray-500/[0.06] shadow-md drop-shadow-xl overflow-hidden w-64 my-0 mx-2 md:mx-4 lg:mx-8 h-36 md:h-72"
-                    style={{
-                        backdropFilter: 'blur(5px)',
-                        WebkitBackdropFilter: 'blur(5px)',
-                    }}
-
+                    className="relative rounded-lg border border-solid border-gray-500/[0.06] opacity-65 hover:opacity-100 shadow-md drop-shadow-xl hover:border-0 overflow-hidden w-64 mx-2 md:mx-4 lg:mx-8 h-36 md:h-72"
                 >
                     <img
                         src={`/images/${series.data.imageUrl}`} alt={`${series.data.title} image`}
-                        className="absolute h-auto  w-full md:h-full md:w-auto object-cover opacity-10 filter saturate-200 brightness-[75%] contrast-[4]"
+                        className="absolute h-auto  w-full md:h-full md:w-auto object-cover filter saturate-150 contrast-75 brightness-110"
                     />
+
                     <div
                         className="absolute w-full h-full flex flex-col justify-center items-center text-center"
                     >
-                        <h2 className="text-white text-xl font-bold  mb-1 md:text-2xl mx-auto whitespace-pre-wrap break-keep w-48 md:mb-2">{series.data.title}</h2>
+                        <h2 className="text-white text-xl font-bold mb-1 md:text-2xl mx-auto whitespace-pre-wrap break-keep w-48 md:mb-2 ">{series.data.title}</h2>
                         <p className="text-white text-sm font-thin md:mt-4 whitespace-pre-wrap break-keep mx-auto">
                             {series.data.description}
                         </p>
@@ -122,7 +118,8 @@ const Carousel: React.FC<CarouselProps> = ({slides}) => {
             data-carousel="slide"
             className="max-w-screen-xl mx-auto h-full w-full"
         >
-            <div className="flex flex-nowrap overflow-x-scroll justify-center lg:justify-between mx-auto items-center h-full w-full">
+            <div
+                className="flex flex-nowrap overflow-x-scroll justify-center lg:justify-between mx-auto items-center h-full w-full">
                 <CarouselControl direction="prev" onClick={goToPrevious}/>
                 <div>
                     {groupedSeries.map((slide, index) => (

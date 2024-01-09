@@ -34,14 +34,14 @@ const PostCard: React.FC<PostProps> = ({ post }) => {
 
     return (
         <div
-            className="relative w-96 h-64 mx-auto my-4 rounded-xl shadow-md"
+            className="relative w-full pb-[67%]  rounded-xl shadow-md"
             style={{ backgroundImage: `url('/images/${image}')`, backgroundSize: 'cover' }}
         >
-            <a href={`/posts/${slugify(post.slug)}`}>
-                <div className="absolute flex flex-col space-y-4 items-center justify-center rounded-xl inset-0 border border-slate-100	 border-solid bg-[#640028]/10 backdrop-blur-sm hover:backdrop-blur-md hover:bg-black/40 text-[#F4F4FF] text-center hover:text-white transition duration-300 ease-in-out">
-                    <h2 className="text-md font-semibold sm:text-xl">{title}</h2>
+            <a href={`/tech/${slugify(post.slug)}`}>
+                <div className="absolute flex flex-col space-y-4 items-center justify-center rounded-xl inset-0 border border-slate-100	 border-solid backdrop-blur-sm hover:backdrop-blur-md hover:bg-black/40 text-white text-center hover:text-white transition duration-300 ease-in-out">
+                    <h2 className="font-semibold text-xl whitespace-pre-wrap break-keep">{title}</h2>
                     <p className="text-sm font-thin">{formatDate(date)}</p>
-                    <p className="text-sm font-light">{description}</p>
+                    <p className="text-sm font-light whitespace-pre-wrap break-keep text-ellipsis">{description}</p>
                     <div className="flex flex-wrap mt-4 justify-center">
                         <TagList tags={tags} limitCount={3} />
                     </div>

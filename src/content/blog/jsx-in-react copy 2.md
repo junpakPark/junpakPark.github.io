@@ -1,5 +1,5 @@
 ---
-link: "tech"
+category: "project"
 title: "Exploring JSX in React (3)"
 date: "2024-01-03"
 author: "준팍"

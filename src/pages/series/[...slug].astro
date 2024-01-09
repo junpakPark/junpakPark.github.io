@@ -1,13 +1,10 @@
 ---
-import {slugify, processPosts, formatDate} from "../../utils";
 import {type CollectionEntry, getCollection, getEntries} from "astro:content";
+import {slugify, processPosts, formatDate} from "../../utils";
 
+import PostList from "../../components/PostList";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
-import ContentLayout from "../../layouts/ContentLayout.astro";
-import PostList from "../../components/PostList";
-
-import "../../styles/mdx.css";
 
 
 export const getStaticPaths = async (): Promise<any[]> => {
@@ -24,6 +21,8 @@ export const getStaticPaths = async (): Promise<any[]> => {
     }));
 }
 
+
+
 const {series, seriesPosts} = Astro.props;
 const processedPosts = processPosts(await getEntries(seriesPosts), {sortOption: 'None'});
 const getMostRecentDateFormatted = (posts: CollectionEntry<'blog'>[]) => {
@@ -36,26 +35,24 @@ const getMostRecentDateFormatted = (posts: CollectionEntry<'blog'>[]) => {
 ---
 
 <BaseLayout>
+    <div class="relative w-full min-h-64 bg-cover" style={{backgroundImage: `url('/images/${series.imageUrl}')`}}>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="max-w-screen-xl mx-auto ">
+            <div class="absolute bottom-3 px-16 space-y-4 pb-4 md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]">
+                <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{series.title}</label>
+                <p class="text-5xl text-white font-bold whitespace-pre-wrap break-keep w-[600px]">{series.description}</p>
+                <p class="text-white">
+                    <span class="text-fuchsia-400">{processedPosts.length}</span> Posts |
+                    Last updated on {getMostRecentDateFormatted(processedPosts)}
+                </p>
+            </div>
+        </div>
+    </div>
     <MainLayout>
-
-        <ContentLayout>
-            <label class="font-medium inline-flex border-b-2 border-solid border-purple-500 text-purple-500">{series.title}</label>
-            <div class="space-y-4 py-6">
-                <p class="text-4xl font-gray-700 font-bold whitespace-pre-wrap break-keep w-[600px]">{series.description}</p>
-                <div class="mt-1 flex gap-2">
-                    <div class="flex items-center gap-1 ">
-                        <p>
-                            <span class="text-purple-800">{processedPosts.length}</span> Posts |
-                            Last updated on {getMostRecentDateFormatted(processedPosts)}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-4 mb-8">
-                <hr/>
-            </div>
-            <PostList posts={processedPosts} isIndexed={true}/>
-        </ContentLayout>
-
+        <div class="flex justify-around">
+            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
+                <PostList posts={processedPosts} isIndexed={true}/>
+            </article>
+        </div>
     </MainLayout>
 </BaseLayout>

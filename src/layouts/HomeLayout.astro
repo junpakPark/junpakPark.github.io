@@ -13,9 +13,7 @@ interface Props {
 }
 ---
 
-<div
-        class="relative w-full h-56 md:h-96 transition ease-in-out"
->
+<div class="relative w-full h-56 md:h-96 transition ease-in-out">
     <Carousel client:load slides={shuffledSeries}/>
     <Particles client:load/>
 </div>
@@ -23,8 +21,8 @@ interface Props {
 <div class="my-8 max-w-screen-xl mx-auto flex-col">
     <h2 class="p-4 text-gray-700 text-2xl font-semibold">최근 포스팅 게시물</h2>
     <hr class="p-4"/>
-    <div class="flex justify-end px-2 pb-2">
-        <a class="inline-flex h-6 items-center text-gray-700" href="/posts">
+    <div class="flex justify-end px-2 pb-8">
+        <a class="inline-flex h-6 items-center text-gray-700" href="/tech">
             전체 게시글 보러가기
             <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +41,7 @@ interface Props {
         </a>
     </div>
     <div
-            class="grid gap-4 grid-cols-1 overflow-x-scroll sm:grid-cols-2 lg:grid-cols-3"
+            class="grid gap-4 grid-cols-1 overflow-x-scroll sm:grid-cols-2 lg:grid-cols-3 mx-8"
     >
         {recentPost.map(post =>
                 <PostCard post={post}/>)}

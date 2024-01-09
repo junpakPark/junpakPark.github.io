@@ -10,7 +10,6 @@ const slugify = (text: string): string => {
         .replace(/-+$/, '');
 }
 
-
 const formatDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = {
         year: 'numeric',

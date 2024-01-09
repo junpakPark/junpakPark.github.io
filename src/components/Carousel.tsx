@@ -11,7 +11,7 @@ const CarouselControl: React.FC<CarouselControlProps> = ({direction, onClick}) =
     return (
         <button
             type="button"
-            className={`${direction === 'prev' ? 'start-0' : 'end-0'} hidden lg:block cursor-pointer group focus:outline-none rounded-full border border-transparent text-white bg-[#640028]/10 disabled:opacity-50 disabled:pointer-events-none`}
+            className={`${direction === 'prev' ? 'start-0' : 'end-0'} hidden lg:block cursor-pointer shadow-inner drop-shadow-xl rounded-full text-white bg-[#640028]/5 `}
             onClick={onClick}
             aria-label={direction === 'prev' ? 'Previous' : 'Next'}
         >
@@ -36,12 +36,12 @@ type CarouselIndicatorsProps = {
 
 const CarouselIndicators: React.FC<CarouselIndicatorsProps> = ({totalSlides, currentSlide, goToSlide}) => {
     return (
-        <div className="absolute flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+        <div className="absolute flex -translate-x-1/2 bottom-4 left-1/2 space-x-3 rtl:space-x-reverse">
             {Array.from({length: totalSlides}).map((_, index) => (
                 <button
                     key={index}
                     type="button"
-                    className={`w-8 h-2 rounded-full ${index === currentSlide ? 'bg-gray-100/50' : 'bg-[#640028]/10'}`}
+                    className={`w-8 h-2 rounded-full ${index === currentSlide ? 'bg-gray-100' : 'bg-[#640028]/10'}`}
                     aria-current={index === currentSlide ? 'true' : 'false'}
                     aria-label={`Slide ${index + 1}`}
                     onClick={() => goToSlide(index)}
@@ -58,25 +58,31 @@ type CarouselItemProps = {
 
 const CarouselItem: React.FC<CarouselItemProps> = ({serieses, isActive}) => {
     return (
-        <div className={`flex justify-between mx-auto item-center flex-nowrap  ${isActive ? '' : 'hidden'}`}>
+        <div className={`flex justify-between p-4 mx-auto item-center flex-nowrap  ${isActive ? '' : 'hidden'}`}>
             {serieses.map((series, index) => (
                 <a
-                    href={`/series/${slugify(series.data.title)}`}
                     key={index}
-                    className="flex flex-col justify-center w-64 my-0 mx-2 md:mx-4 lg:mx-8 h-36 md:h-72 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                    href={`/series/${slugify(series.data.title)}`}
+                    className="relative rounded-lg border border-solid border-gray-500/[0.06] shadow-md drop-shadow-xl overflow-hidden w-64 my-0 mx-2 md:mx-4 lg:mx-8 h-36 md:h-72"
                     style={{
-                        background: 'rgba(100, 0, 40, 0.1)',
-                        borderRadius: '16px',
-                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                        backdropFilter: 'blur(8px)',
-                        WebkitBackdropFilter: 'blur(8px)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                        backdropFilter: 'blur(5px)',
+                        WebkitBackdropFilter: 'blur(5px)',
                     }}
+
                 >
-                    <h2 className="text-[#F4F4FF] text-center text-xl mb-1 md:text-2xl mx-auto whitespace-pre-wrap break-keep w-48 font-bold md:mb-2">{series.data.title}</h2>
-                    <p className="text-[#F4F4FF] md:mt-4 text-sm font-thin text-center whitespace-pre-wrap break-keep w-48 mx-auto">
-                        {series.data.description}
-                    </p>
+                    <img
+                        src={`/images/${series.data.imageUrl}`} alt={`${series.data.title} image`}
+                        className="absolute h-auto  w-full md:h-full md:w-auto object-cover opacity-10 filter saturate-200 brightness-[75%] contrast-[4]"
+                    />
+                    <div
+                        className="absolute w-full h-full flex flex-col justify-center items-center text-center"
+                    >
+                        <h2 className="text-white text-xl font-bold  mb-1 md:text-2xl mx-auto whitespace-pre-wrap break-keep w-48 md:mb-2">{series.data.title}</h2>
+                        <p className="text-white text-sm font-thin md:mt-4 whitespace-pre-wrap break-keep mx-auto">
+                            {series.data.description}
+                        </p>
+
+                    </div>
                 </a>
             ))}
         </div>
@@ -114,9 +120,9 @@ const Carousel: React.FC<CarouselProps> = ({slides}) => {
     return (
         <div
             data-carousel="slide"
-            className="max-w-screen-xl mx-auto h-56 md:h-96 transition ease-in-out"
+            className="max-w-screen-xl mx-auto h-full w-full"
         >
-            <div className="flex flex-nowrap overflow-x-scroll justify-between mx-auto items-center pt-10">
+            <div className="flex flex-nowrap overflow-x-scroll justify-center lg:justify-between mx-auto items-center h-full w-full">
                 <CarouselControl direction="prev" onClick={goToPrevious}/>
                 <div>
                     {groupedSeries.map((slide, index) => (
@@ -124,7 +130,6 @@ const Carousel: React.FC<CarouselProps> = ({slides}) => {
                 </div>
                 <CarouselControl direction="next" onClick={goToNext}/>
             </div>
-
             <CarouselIndicators totalSlides={groupedSeries.length} currentSlide={currentSlide} goToSlide={goToSlide}/>
         </div>
     );

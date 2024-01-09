@@ -8,7 +8,7 @@ export const AUTHOR = {
 };
 
 export const LINKS: string[] = [
-    "TECH", "LIFE", "SERIES", "ABOUT"
+    "TECH", "LIFE", "ABOUT"
 ];
 
 export interface FeatureProps {

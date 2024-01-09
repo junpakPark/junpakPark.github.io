@@ -3,6 +3,7 @@ import type {CollectionEntry} from "astro:content";
 
 import PostCard from "../components/PostCard";
 import Carousel from "../components/Carousel";
+import Particles from "../components/Particles";
 
 const {shuffledSeries, recentPost} = Astro.props;
 
@@ -13,13 +14,10 @@ interface Props {
 ---
 
 <div
-        class="bg-gradient-to-l from-blue-200 via-purple-200 to-pink-200 relative w-full h-56 md:h-96"
-        style={{
-            backgroundImage: `url('/images/bg.jpg')`,
-            backgroundSize: "cover",
-        }}
+        class="relative w-full h-56 md:h-96 transition ease-in-out"
 >
     <Carousel client:load slides={shuffledSeries}/>
+    <Particles client:load/>
 </div>
 
 <div class="my-8 max-w-screen-xl mx-auto flex-col">

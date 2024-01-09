@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 
 const PI2 = Math.PI * 2;
 
@@ -24,7 +24,7 @@ class GlowParticle {
     vy: number;
     sinValue: number;
 
-    constructor({ x, y, radius, rgb }: ParticleProps) {
+    constructor({x, y, radius, rgb}: ParticleProps) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -78,22 +78,26 @@ class GlowParticle {
 }
 
 const COLORS: RGB[] = [
-    { r: 213, g: 88, b: 200 }, //#d558c8
-    { r: 36, g: 210, b: 146 }, //#24d292
-    { r: 151, g: 149, b: 240 }, // #9795F0
-    { r: 251, g: 200, b: 212 }, //#FBC8D4
-    { r: 249, g: 212, b: 35 }, //#F9D423
+    {r: 223, g: 133, b: 214}, //#DF85D6
+    {r: 145, g: 236, b: 203}, //#91ECCB
+    {r: 186, g: 184, b: 243}, // #BAB8F3
+    {r: 249, g: 183, b: 199}, //#F9B7C7
+    {r: 251, g: 232, b: 135}, //#FBE887
+    {r: 119, g: 213, b: 237}, //#F9B7C7
+    {r: 234, g: 236, b: 198}, //#FBE887
 ];
 
-interface ParticlesProps { }
+interface ParticlesProps {
+}
+
+const totalParticles = 14;
+const maxRadius = 500;
+const minRadius = 300;
 
 const Particles: React.FC<ParticlesProps> = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const requestRef = useRef<number>();
     const particles = useRef<GlowParticle[]>([]);
-    const totalParticles = 15;
-    const maxRadius = 180;
-    const minRadius = 80;
 
     const createParticles = useCallback((stageWidth: number, stageHeight: number, ctx: CanvasRenderingContext2D | null) => {
         if (!ctx) return;
@@ -163,9 +167,11 @@ const Particles: React.FC<ParticlesProps> = () => {
         };
     }, [resize, animate]);
 
+    useEffect(() => animate(), []);
+
     return <canvas
         ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full" />;
+        className="absolute -z-10 top-0 left-0 w-full h-full"/>;
 };
 
 export default Particles;

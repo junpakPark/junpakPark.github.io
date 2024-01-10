@@ -45,13 +45,13 @@ interface MajorCategoryProps {
 }
 
 const MajorCategory: React.FC<MajorCategoryProps> = React.memo(({major, categories, categoryPostCounts}) => (
-    <div>
-        <h2 className="font-semibold">{major}</h2>
-        <ul>
+    <div className="space-y-2">
+        <h2 className="text-gray-400">{major}</h2>
+        <ul className="ml-2 border-l-[1.5px] border-solid space-y-1">
             {categories.map((category) => (
-                <li key={category.data.title} className="text-sm pt-2 pl-4">
+                <li key={category.data.title} className="text-sm text-gray-400 pl-3">
                     <a href={`/tech/${slugify(category.id)}`}>
-                        - {category.data.title} ({categoryPostCounts[category.id]})
+                        {category.data.title} ({categoryPostCounts[category.id]})
                     </a>
                 </li>
             ))}
@@ -69,10 +69,10 @@ const Categories: React.FC<CategoriesProps> = ({categories, posts}) => {
     const categoryPostCounts = countPostsPerCategory(posts, categories);
 
     return (
-        <div className="sticky top-[17rem] left-[4rem]">
+        <div className="sticky top-[17.5rem] left-[4rem]">
             <div
-                className="p-4 mx-auto space-y-2 bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                <h2 className=" font-semibold mb-2">
+                className="p-4 mx-auto space-y-2 border-t-[1px] border-b-[1px]">
+                <h2 className="text-gray-400 mb-2">
                     <a href="/tech">전체 글 보기 ({posts.length})</a>
                 </h2>
                 {

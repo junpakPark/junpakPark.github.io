@@ -1,11 +1,12 @@
 ---
-import {getCollection, type CollectionEntry} from "astro:content";
+import {getCollection, type CollectionEntry, getEntries} from "astro:content";
 import {slugify, processPosts} from "../../utils";
 
 import Categories from "../../components/Categories";
 import ArticleHeader from "../../components/article/ArticleHeader";
 import ArticleFooter from "../../components/article/ArticleFooter";
 import FloatingBar from "../../components/article/FloatingBar";
+import SeriesPosts from "../../components/SeriesPosts";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 
@@ -13,39 +14,50 @@ import "../../styles/mdx.css";
 
 
 export const getStaticPaths = async (): Promise<any[]> => {
-    const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+    const allPosts: CollectionEntry<"blog">[] = processPosts(await getCollection("blog"));
     const allCategories: CollectionEntry<"category">[] = await getCollection("category");
-    const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
+    const allSeries = await getCollection('series');
 
-    return processedPosts.map((post, index, posts) => ({
-        params: {
-            slug: slugify(post.slug),
-        },
-        props: {
-            allCategories,
-            processedPosts,
-            currentPost: post,
-            prevPost: posts[index + 1],
-            nextPost: posts[index - 1],
-        },
-    }));
+    return allPosts.map((post, index, posts) => {
+        const foundSeries = allSeries.find((series) =>
+            series.data.posts.some((seriesPost) => seriesPost.slug === post.slug),
+        );
+
+        return {
+            params: {
+                slug: slugify(post.slug),
+            },
+            props: {
+                allCategories,
+                allPosts,
+                post,
+                prevPost: posts[index + 1],
+                nextPost: posts[index - 1],
+                series: foundSeries.data,
+            },
+        }
+    });
 }
 
-const {allCategories, processedPosts, currentPost, prevPost, nextPost} = Astro.props;
-const {Content, headings} = await currentPost.render();
+const {allCategories, allPosts, post, prevPost, nextPost, series} = Astro.props;
+const {Content, headings} = await post.render();
+const seriesPosts: CollectionEntry<'blog'>[] = processPosts(await getEntries(series.posts), {sortOption: 'None'});
 ---
 
 <BaseLayout>
     <MainLayout>
         <div class="flex justify-around">
-            <div class="w-[16rem] hidden lg:block">
-                <Categories categories={allCategories} posts={processedPosts}/>
+            <div class="w-[16rem] hidden lg:block border-r-[1px] border-l-[1px]">
+                <Categories categories={allCategories} posts={allPosts}/>
             </div>
+
             <article class="mx-auto md:w-[48rem] p-[4rem]">
-                <ArticleHeader article={currentPost}/>
+                <ArticleHeader article={post}/>
                 <div class="mdx">
                     <Content/>
                 </div>
+                {seriesPosts ?
+                        <SeriesPosts {seriesPosts} seriesData={series} currentPost={post}/> : undefined}
                 <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
             </article>
             <div class="w-[16rem] hidden xl:block">

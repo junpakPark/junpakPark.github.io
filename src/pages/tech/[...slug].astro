@@ -1,5 +1,5 @@
 ---
-import {type CollectionEntry, getCollection, getEntry} from "astro:content";
+import {type CollectionEntry, getCollection} from "astro:content";
 import {getMostRecentDateFormatted, processPosts} from "../../utils";
 
 import Categories from "../../components/Categories";
@@ -10,33 +10,29 @@ import MainLayout from "../../layouts/MainLayout.astro";
 
 export const getStaticPaths = async (): Promise<any[]> => {
     const allCategories: CollectionEntry<'category'>[] = await getCollection("category");
+    const allPosts: CollectionEntry<"blog">[] = processPosts(await getCollection("blog"));
 
-    return allCategories.map(category => ({
-        params: {
-            slug: category.id
+    return allCategories.map(category => {
+        const categoryPosts: CollectionEntry<"blog">[] = allPosts.filter(post => post.data.category.id === category.id);
+
+        return {
+            params: {
+                slug: category.id
+            },
+            props: {
+                category, allCategories, allPosts, categoryPosts
+            }
         }
-    }));
+    });
 };
 
-const getStaticProps = async (slug): Promise<any[]> => {
-    const category: CollectionEntry<"category"> = await getEntry('category', slug);
-
-    const allCategories: CollectionEntry<"category">[] = await getCollection("category");
-    const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
-    const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
-    const categoryPosts: CollectionEntry<"blog">[] = processedPosts.filter(post => post.data.category.id === category.id);
-
-    return {category, allCategories, processedPosts, categoryPosts};
-};
-
-const {slug} = Astro.params;
-const {category, allCategories, processedPosts, categoryPosts} = await getStaticProps(slug);
+const {category, allCategories, allPosts, categoryPosts} = Astro.props;
 ---
 <BaseLayout>
     <MainLayout>
         <div class="flex justify-around">
             <div class="w-[16rem] hidden lg:block">
-                <Categories categories={allCategories} posts={processedPosts}/>
+                <Categories categories={allCategories} posts={allPosts}/>
             </div>
             <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
                 <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{category.data.title}</label>

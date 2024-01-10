@@ -28,8 +28,8 @@ const processedPosts: CollectionEntry<'blog'> = processPosts(await getEntries(se
 <BaseLayout>
     <div class="relative w-full min-h-64 bg-cover" style={{backgroundImage: `url('/images/${series.imageUrl}')`}}>
         <div class="absolute inset-0 bg-black/50"></div>
-        <div class="max-w-screen-xl mx-auto ">
-            <div class="absolute bottom-3 px-16 space-y-4 pb-4 md:w-[48rem] xl:ml-[19.5rem] xl:mr-[19.5rem]">
+        <div class="flex justify-center max-w-screen-xl mx-auto ">
+            <div class="absolute bottom-3 px-16 space-y-4 pb-4 md:w-[48rem] mx-auto">
                 <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{series.title}</label>
                 <p class="text-5xl text-white font-bold whitespace-pre-wrap break-keep w-[600px]">{series.description}</p>
                 <p class="text-white">

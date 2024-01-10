@@ -126,6 +126,7 @@ const Header: React.FC = () => {
                         <Links links={LINKS} type={LinksType.Toggle}/>
                     </div>
                 </nav>
+                <hr/>
             </header>
             <div
                 className="fixed top-12 left-0 h-1 z-50 bg-gradient-to-r from-pink-100 to-purple-600 rounded-tr-sm"

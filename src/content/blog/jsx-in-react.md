@@ -9,6 +9,8 @@ published: true
 tags: [ "React", "JSX", "Frontend" ]
 ---
 
+# 진짜 제목
+
 JSX, or JavaScript XML, is a syntax extension for JavaScript often used with React to describe what the UI should look
 like. By using JSX, you can write HTML structures in the same file as your JavaScript code. This integration of markup
 with logic makes building React components more intuitive and accessible.
@@ -28,6 +30,8 @@ This code defines a constant `element` that stores a JSX expression. When used w
 a `<h1>` element with the text “Hello, world!” on the web page.
 
 ## Why Use JSX?
+
+### 나도 알 수가 없다...
 
 The main advantage of JSX is its readability and expressiveness. Since it resembles HTML, developers who are familiar
 with web development can easily understand and use JSX in their React applications.

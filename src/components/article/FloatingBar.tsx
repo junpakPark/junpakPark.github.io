@@ -100,16 +100,16 @@ const ScrollSpy: React.FC<HeadingProps> = ({headings}) => {
     return (
         <>
             {headings ? (
-                <ul className="space-y-4">
+                <ul className="space-y-3 pl-4 border-l-[0.5px] border-gray-300 border-solid">
                     {headings.map(heading => (
                         <li
-                            data-level={numberToStringMap[heading.depth]}
                             key={heading.slug}
+                            data-level={numberToStringMap[heading.depth]}
+                            className={`text-sm data-[level=two]:pl-3 data-[level=three]:pl-7 hover:text-gray-900 hover:font-medium focus:outline-none ${activeToc === heading.slug ? "font-medium text-gray-900" : "text-gray-400"}`}
                         >
                             <a
                                 href={`#${heading.slug}`}
                                 onClick={(e) => handleTocClick(e, heading.slug)}
-                                className={`text-sm leading-8 hover:text-gray-900 hover:font-medium  focus:outline-none ${activeToc === heading.slug ? "font-medium text-gray-900" : "text-gray-400"}`}
                             >
                                 {heading.text}
                             </a>
@@ -168,7 +168,7 @@ const ButtonsCollection: React.FC = () => {
     ];
 
     return (
-        <div className="flex justify-between">
+        <div className="flex justify-around ml-4 border border-solid rounded-lg">
             {buttonConfigs.map((config, index) => (
                 <Button key={index} {...config} />
             ))}
@@ -178,7 +178,7 @@ const ButtonsCollection: React.FC = () => {
 
 const FloatingBar: React.FC<HeadingProps> = ({headings}) => {
     return (
-        <div className="sticky top-[17rem] right-[4rem] space-y-2.5 px-8 font-sans text-sm">
+        <div className="sticky top-[17.5rem] right-[4rem] space-y-6 px-8">
             <ScrollSpy headings={headings}/>
             <ButtonsCollection/>
         </div>

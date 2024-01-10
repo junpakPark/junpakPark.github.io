@@ -80,4 +80,12 @@ const truncateText = (text: string, maxLength: number): string => {
     return truncated + "···";
 };
 
-export {slugify, formatDate, processPosts, calculateReadingTime, truncateText};
+const getMostRecentDateFormatted = (posts: CollectionEntry<'blog'>[]) => {
+    const mostRecentDate = posts
+        .map(post => post.data.date)
+        .sort((a, b) => b.getTime() - a.getTime())[0];
+
+    return formatDate(mostRecentDate);
+};
+
+export {slugify, formatDate, processPosts, calculateReadingTime, truncateText, getMostRecentDateFormatted};

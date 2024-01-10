@@ -1,6 +1,6 @@
 ---
 import {type CollectionEntry, getCollection, getEntries} from "astro:content";
-import {slugify, processPosts, formatDate} from "../../utils";
+import {slugify, processPosts, getMostRecentDateFormatted} from "../../utils";
 
 import PostList from "../../components/PostList";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -21,17 +21,8 @@ export const getStaticPaths = async (): Promise<any[]> => {
     }));
 }
 
-
-
 const {series, seriesPosts} = Astro.props;
-const processedPosts = processPosts(await getEntries(seriesPosts), {sortOption: 'None'});
-const getMostRecentDateFormatted = (posts: CollectionEntry<'blog'>[]) => {
-    const mostRecentDate = posts
-        .map(post => post.data.date)
-        .sort((a, b) => b - a)[0];
-
-    return formatDate(mostRecentDate);
-};
+const processedPosts: CollectionEntry<'blog'> = processPosts(await getEntries(seriesPosts), {sortOption: 'None'});
 ---
 
 <BaseLayout>

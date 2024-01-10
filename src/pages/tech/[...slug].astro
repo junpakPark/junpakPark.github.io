@@ -1,52 +1,52 @@
 ---
-import {slugify, processPosts} from "../../utils";
-import "../../styles/mdx.css";
+import {type CollectionEntry, getCollection, getEntry} from "astro:content";
+import {getMostRecentDateFormatted, processPosts} from "../../utils";
+
+import Categories from "../../components/Categories";
+import PostList from "../../components/PostList";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 
-import {getCollection} from "astro:content";
-import type {CollectionEntry} from "astro:content";
-import ArticleHeader from "../../components/article/ArticleHeader";
-import FloatingBar from "../../components/article/FloatingBar";
-import ArticleFooter from "../../components/article/ArticleFooter";
-
-
 
 export const getStaticPaths = async (): Promise<any[]> => {
+    const allCategories: CollectionEntry<'category'>[] = await getCollection("category");
+
+    return allCategories.map(category => ({
+        params: {
+            slug: category.id
+        }
+    }));
+};
+
+const getStaticProps = async (slug): Promise<any[]> => {
+    const category: CollectionEntry<"category"> = await getEntry('category', slug);
+
+    const allCategories: CollectionEntry<"category">[] = await getCollection("category");
     const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
     const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
+    const categoryPosts: CollectionEntry<"blog">[] = processedPosts.filter(post => post.data.category.id === category.id);
 
-    return processedPosts.map((post, index, posts) => ({
-        params: {
-            slug: slugify(post.slug),
-        },
-        props: {
-            currentPost: post,
-            prevPost: posts[index + 1],
-            nextPost: posts[index - 1],
-        },
-    }));
-}
+    return {category, allCategories, processedPosts, categoryPosts};
+};
 
-const {currentPost, prevPost, nextPost} = Astro.props;
-const {Content, headings} = await currentPost.render();
+const {slug} = Astro.params;
+const {category, allCategories, processedPosts, categoryPosts} = await getStaticProps(slug);
 ---
-
 <BaseLayout>
     <MainLayout>
         <div class="flex justify-around">
             <div class="w-[16rem] hidden lg:block">
+                <Categories categories={allCategories} posts={processedPosts}/>
             </div>
-            <article class="mx-auto md:w-[48rem] p-[4rem]">
-                <ArticleHeader article={currentPost}/>
-                <div class="mdx">
-                    <Content/>
-                </div>
-                <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
+            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
+                <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{category.data.title}</label>
+                <p class="text-5xl text-black font-bold whitespace-pre-wrap break-keep w-[600px]">{category.data.description}</p>
+                <p class="text-black">
+                    <span class="text-fuchsia-400">{categoryPosts.length}</span> Posts |
+                    Last updated on {getMostRecentDateFormatted(categoryPosts)}
+                </p>
+                <PostList posts={categoryPosts}/>
             </article>
-            <div class="w-[16rem] hidden xl:block">
-                <FloatingBar headings={headings} client:load/>
-            </div>
         </div>
     </MainLayout>
 </BaseLayout>

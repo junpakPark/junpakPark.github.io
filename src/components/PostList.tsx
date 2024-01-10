@@ -13,7 +13,7 @@ const PostItem: React.FC<PostItemProps> = ({post, index}) => {
 
     return (
         <li className="py-4 text-gray-400">
-            <a href={`/tech/${slugify(post.slug)}`}>
+            <a href={`/posts/${slugify(post.slug)}`}>
                 <h2 className="mb-8 text-4xl font-bold text-gray-700">{index !== undefined ? `(${index + 1})` : null} {title}</h2>
                 <p className='font-light'>{truncateText(post.body, 200)}</p>
                 <p className='text-sm font-light text-right'>

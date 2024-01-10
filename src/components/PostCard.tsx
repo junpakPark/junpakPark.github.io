@@ -37,7 +37,7 @@ const PostCard: React.FC<PostProps> = ({ post }) => {
             className="relative w-full pb-[67%]  rounded-xl shadow-md"
             style={{ backgroundImage: `url('/images/${image}')`, backgroundSize: 'cover' }}
         >
-            <a href={`/tech/${slugify(post.slug)}`}>
+            <a href={`/posts/${slugify(post.slug)}`}>
                 <div className="absolute flex flex-col space-y-4 items-center justify-center rounded-xl inset-0 border border-slate-100	 border-solid backdrop-blur-sm hover:backdrop-blur-md hover:bg-black/40 text-white text-center hover:text-white transition duration-300 ease-in-out">
                     <h2 className="font-semibold text-xl whitespace-pre-wrap break-keep">{title}</h2>
                     <p className="text-sm font-thin">{formatDate(date)}</p>

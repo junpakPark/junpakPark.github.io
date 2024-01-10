@@ -19,6 +19,7 @@ const category = defineCollection({
     schema: z.object({
         title: z.string(),
         major: z.string(),
+        description: z.string(),
     })
 });
 

@@ -1,0 +1,56 @@
+---
+import {getCollection, type CollectionEntry} from "astro:content";
+import {slugify, processPosts} from "../../utils";
+
+import Categories from "../../components/Categories";
+import ArticleHeader from "../../components/article/ArticleHeader";
+import ArticleFooter from "../../components/article/ArticleFooter";
+import FloatingBar from "../../components/article/FloatingBar";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+
+import "../../styles/mdx.css";
+
+
+export const getStaticPaths = async (): Promise<any[]> => {
+    const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
+    const allCategories: CollectionEntry<"category">[] = await getCollection("category");
+    const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
+
+    return processedPosts.map((post, index, posts) => ({
+        params: {
+            slug: slugify(post.slug),
+        },
+        props: {
+            allCategories,
+            processedPosts,
+            currentPost: post,
+            prevPost: posts[index + 1],
+            nextPost: posts[index - 1],
+        },
+    }));
+}
+
+const {allCategories, processedPosts, currentPost, prevPost, nextPost} = Astro.props;
+const {Content, headings} = await currentPost.render();
+---
+
+<BaseLayout>
+    <MainLayout>
+        <div class="flex justify-around">
+            <div class="w-[16rem] hidden lg:block">
+                <Categories categories={allCategories} posts={processedPosts}/>
+            </div>
+            <article class="mx-auto md:w-[48rem] p-[4rem]">
+                <ArticleHeader article={currentPost}/>
+                <div class="mdx">
+                    <Content/>
+                </div>
+                <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
+            </article>
+            <div class="w-[16rem] hidden xl:block">
+                <FloatingBar headings={headings} client:load/>
+            </div>
+        </div>
+    </MainLayout>
+</BaseLayout>

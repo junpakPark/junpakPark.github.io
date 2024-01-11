@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://junpakPark.github.io/sitemap-index.xml

@@ -8,12 +8,11 @@ description: 오늘은 jsx에 대해 알아보겠습니다. 근데 이제 리액
 published: true
 tags: [ "React", "JSX", "Frontend" ]
 ---
-
 # 진짜 제목
 
-JSX, or JavaScript XML, is a syntax extension for JavaScript often used with React to describe what the UI should look
-like. By using JSX, you can write HTML structures in the same file as your JavaScript code. This integration of markup
-with logic makes building React components more intuitive and accessible.
+
+JSX, or JavaScript XML, is a syntax extension for JavaScript often used with React to describe what the UI should look like. 
+By using JSX, you can write HTML structures in the same file as your JavaScript code. This integration of markup with logic makes building React components more intuitive and accessible.
 
 ## What is JSX?
 
@@ -29,6 +28,7 @@ const element = <h1>Hello, world!</h1>;
 This code defines a constant `element` that stores a JSX expression. When used with React, this expression will render
 a `<h1>` element with the text “Hello, world!” on the web page.
 
+
 ## Why Use JSX?
 
 ### 나도 알 수가 없다...
@@ -41,9 +41,14 @@ JSX. This feature lets you integrate logic and UI seamlessly.
 
 For example:
 
-```jsx
-const name = 'React Developer';
-const greeting = <h1>Hello, {name}</h1>;
+```js title="line-markers.js" del={2} ins={3-4} {6}
+function demo() {
+    console.log('this line is marked as deleted')
+    // This line and the next one are marked as inserted
+    console.log('this is the second inserted line')
+
+    return 'this line uses the neutral default marker type'
+}
 ```
 
 This will render “Hello, React Developer” on the screen.

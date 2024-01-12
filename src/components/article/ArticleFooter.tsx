@@ -48,7 +48,7 @@ const ProfileComponent: React.FC = () => {
                         draggable="false"
                     />
                 </div>
-                <div>
+                <div className="space-y-1">
                     <div className="font-bold">{AUTHOR.name}</div>
                     <div className="text-tertiary text-sm">{AUTHOR.description}</div>
                     <SocialButtons

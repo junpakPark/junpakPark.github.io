@@ -8,7 +8,7 @@ type ButtonProps = {
 
 const IconButton: React.FC<ButtonProps> = ({iconPath, width, height}) => {
     return (
-        <button type="button" className=" hover:text-black">
+        <button type="button" className=" hover:text-gray-400">
             <svg
                 width={width}
                 height={height}

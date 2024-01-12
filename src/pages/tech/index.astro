@@ -11,9 +11,11 @@ const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
 const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
 ---
 <BaseLayout>
-    <SidebarLayout />
+    <SidebarLayout/>
     <MainLayout>
-        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+        <div
+                class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto"
+                style="min-height: calc(100vh - 136px)">
             <article class="col-span-3 p-[4rem]">
                 <h1 class="text-2xl font-semibold">
                     전체 글 <span class="text-xl text-purple-600"> ({processedPosts.length}) </span>

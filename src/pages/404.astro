@@ -1,14 +1,19 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MainLayout from "../layouts/MainLayout.astro";
+import SidebarLayout from "../layouts/SidebarLayout.astro";
 ---
 
 <BaseLayout>
+    <SidebarLayout />
     <MainLayout>
-        <div class="flex justify-around">
-            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
-                <h1>404</h1>
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+            <article class="col-span-3 p-[4rem]">
+                <h1 class="text-2xl font-semibold">
+                    404
+                </h1>
             </article>
+            <div class="hidden xl:block col-span-1 w-[16rem] py-8 "></div>
         </div>
     </MainLayout>
 </BaseLayout>

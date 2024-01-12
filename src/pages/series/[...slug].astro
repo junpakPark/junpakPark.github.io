@@ -43,13 +43,13 @@ const processedPosts: CollectionEntry<"blog">[] = processPosts(await getEntries(
             </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+        <div
+                class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto"
+                style="min-height: calc(100vh - 390px)">
             <article class="col-span-3 p-[4rem]">
                 <PostList posts={processedPosts} isIndexed={true}/>
             </article>
-            <div class="hidden xl:block col-span-1 w-[16rem] py-8 ">
-
-            </div>
+            <div class="hidden xl:block col-span-1 w-[16rem] py-8 "></div>
         </div>
     </MainLayout>
 </BaseLayout>

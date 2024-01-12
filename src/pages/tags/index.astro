@@ -41,7 +41,10 @@ const {allTags, tagCounts} = await getTags();
 <BaseLayout>
     <SidebarLayout/>
     <MainLayout>
-        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+        <div
+                class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto"
+                style="min-height: calc(100vh - 136px)">
+
             <article class="col-span-3 p-[4rem]">
                 <h1 class="text-2xl font-semibold">
                     There are <span class="text-purple-600">{allTags.length}</span> tags!
@@ -49,11 +52,7 @@ const {allTags, tagCounts} = await getTags();
                 <TagList tags={allTags} tagCounts={tagCounts}/>
                 <hr/>
             </article>
-            <div class="hidden xl:block col-span-1 w-[16rem]">
-                <div class="border-l h-full">
-
-                </div>
-            </div>
+            <div class="hidden xl:block col-span-1 w-[16rem]"></div>
         </div>
     </MainLayout>
 </BaseLayout>

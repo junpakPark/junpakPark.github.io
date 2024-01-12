@@ -9,7 +9,7 @@ interface SocialButtonsProps {
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({socialMedias, className = ''}) => {
     return (
-        <div className="flex mb-4 mx-auto space-x-12 2xl:space-x-16 items-center text-gray-400">
+        <div className="flex mx-auto space-x-8 justify-center items-center text-black">
             {socialMedias.map((socialMedia, index) => (
                 <a
                     key={index}

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {type FeatureProps, FEATURES} from "../constants";
-import {slugify} from "../utils";
+import {FEATURES} from "../constants";
 import IconButton from './IconButton';
 
 const Header: React.FC = () => {
@@ -25,7 +24,7 @@ const Header: React.FC = () => {
             <header
                 className="sticky top-0 left-0 w-full z-50  backdrop-blur transition-colors duration-500 bg-white border-gray-200 "
             >
-                <nav className="flex space-x-6 justify-end items-center h-12 mx-auto px-8 max-w-screen-xl">
+                <nav className="flex space-x-8 justify-end items-center h-12 mx-auto px-8 max-w-screen-xl">
                     {FEATURES.map((feature) => (
                         <a
                             key={feature.name}

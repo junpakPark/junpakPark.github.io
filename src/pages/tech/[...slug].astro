@@ -31,7 +31,9 @@ const {category, categoryPosts} = Astro.props;
 <BaseLayout>
     <SidebarLayout/>
     <MainLayout>
-        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+        <div
+                class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto"
+                style="min-height: calc(100vh - 136px)">
             <article class="col-span-3 p-[4rem] space-y-4">
                 <label class="font-bold inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{category.data.title}</label>
                 <p class="text-4xl text-black font-bold whitespace-pre-wrap break-keep w-[600px]">{category.data.description}</p>
@@ -41,11 +43,7 @@ const {category, categoryPosts} = Astro.props;
                 </p>
                 <PostList posts={categoryPosts}/>
             </article>
-            <div class="hidden xl:block col-span-1 w-[16rem]">
-                <div class="border-l h-full">
-
-                </div>
-            </div>
+            <div class="hidden xl:block col-span-1 w-[16rem]"></div>
         </div>
 
     </MainLayout>

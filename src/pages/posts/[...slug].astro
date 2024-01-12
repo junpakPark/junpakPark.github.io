@@ -47,7 +47,9 @@ const seriesPosts: CollectionEntry<'blog'>[] = series ? processPosts(await getEn
 <BaseLayout>
     <SidebarLayout/>
     <MainLayout>
-        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+        <div
+                class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto"
+                style="min-height: calc(100vh - 136px)">
             <article class="col-span-3 p-[4rem]">
                 <ArticleHeader article={post}/>
                 <div class="-z-10 mdx">

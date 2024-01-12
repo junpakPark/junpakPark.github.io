@@ -5,6 +5,7 @@ import {slugify, processPosts, getMostRecentDateFormatted} from "../../utils";
 import PostList from "../../components/PostList";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
+import SidebarLayout from "../../layouts/SidebarLayout.astro";
 
 
 export const getStaticPaths = async (): Promise<any[]> => {
@@ -22,28 +23,33 @@ export const getStaticPaths = async (): Promise<any[]> => {
 }
 
 const {series, seriesPosts} = Astro.props;
-const processedPosts: CollectionEntry<'blog'> = processPosts(await getEntries(seriesPosts), {sortOption: 'None'});
+const processedPosts: CollectionEntry<"blog">[] = processPosts(await getEntries(seriesPosts), {sortOption: 'None'});
 ---
 
 <BaseLayout>
-    <div class="relative w-full min-h-64 bg-cover" style={{backgroundImage: `url('/images/${series.imageUrl}')`}}>
-        <div class="absolute inset-0 bg-black/50"></div>
-        <div class="flex justify-center max-w-screen-xl mx-auto ">
-            <div class="absolute bottom-3 px-16 space-y-4 pb-4 md:w-[48rem] mx-auto">
-                <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{series.title}</label>
-                <p class="text-5xl text-white font-bold whitespace-pre-wrap break-keep w-[600px]">{series.description}</p>
-                <p class="text-white">
-                    <span class="text-fuchsia-400">{processedPosts.length}</span> Posts |
-                    Last updated on {getMostRecentDateFormatted(processedPosts)}
-                </p>
+    <SidebarLayout/>
+    <MainLayout>
+        <div class="relative w-full min-h-64 bg-cover" style={{backgroundImage: `url('/images/${series.imageUrl}')`}}>
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto items-end">
+                <div class="absolute bottom-3 space-y-4 col-span-3 px-[4rem]">
+                    <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{series.title}</label>
+                    <p class="text-5xl text-white font-bold whitespace-pre-wrap break-keep w-[600px]">{series.description}</p>
+                    <p class="text-white">
+                        <span class="text-fuchsia-400">{processedPosts.length}</span> Posts |
+                        Last updated on {getMostRecentDateFormatted(processedPosts)}
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-    <MainLayout>
-        <div class="flex justify-around">
-            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
+
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+            <article class="col-span-3 p-[4rem]">
                 <PostList posts={processedPosts} isIndexed={true}/>
             </article>
+            <div class="hidden xl:block col-span-1 w-[16rem] py-8 ">
+
+            </div>
         </div>
     </MainLayout>
 </BaseLayout>

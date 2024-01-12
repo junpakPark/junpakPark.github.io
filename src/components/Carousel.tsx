@@ -11,7 +11,7 @@ const CarouselControl: React.FC<CarouselControlProps> = ({direction, onClick}) =
     return (
         <button
             type="button"
-            className={`${direction === 'prev' ? 'start-0' : 'end-0'} hidden lg:block cursor-pointer shadow-inner drop-shadow-xl rounded-full text-white bg-[#640028]/5 hover:bg-[#640028]/15 `}
+            className={`${direction === 'prev' ? 'start-0' : 'end-0'} hidden lg:block cursor-pointer shadow-inner drop-shadow-xl rounded-full text-white bg-[#640028]/5 hover:bg-[#640028]/15`}
             onClick={onClick}
             aria-label={direction === 'prev' ? 'Previous' : 'Next'}
         >
@@ -119,15 +119,18 @@ const Carousel: React.FC<CarouselProps> = ({slides}) => {
             className="max-w-screen-xl mx-auto h-full w-full"
         >
             <div
-                className="flex flex-nowrap overflow-x-scroll justify-center lg:justify-between mx-auto items-center h-full w-full">
-                <CarouselControl direction="prev" onClick={goToPrevious}/>
+                className={`flex flex-nowrap overflow-x-scroll justify-center ${groupedSeries.length > 1 ? "lg:justify-between" : ""} mx-auto items-center h-full w-full`}>
+                {groupedSeries.length > 1 ? <CarouselControl direction="prev" onClick={goToPrevious}/> : ""}
                 <div>
                     {groupedSeries.map((slide, index) => (
                         <CarouselItem key={index} serieses={slide} isActive={index === currentSlide}/>))}
                 </div>
-                <CarouselControl direction="next" onClick={goToNext}/>
+                {groupedSeries.length > 1 ? <CarouselControl direction="next" onClick={goToNext}/> : ""}
             </div>
-            <CarouselIndicators totalSlides={groupedSeries.length} currentSlide={currentSlide} goToSlide={goToSlide}/>
+            {groupedSeries.length > 1 ?
+                <CarouselIndicators totalSlides={groupedSeries.length} currentSlide={currentSlide}
+                                    goToSlide={goToSlide}/> : ""}
+
         </div>
     );
 };

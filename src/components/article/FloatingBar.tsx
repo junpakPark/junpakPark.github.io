@@ -178,7 +178,7 @@ const ButtonsCollection: React.FC = () => {
 
 const FloatingBar: React.FC<HeadingProps> = ({headings}) => {
     return (
-        <div className="sticky top-[17.5rem] right-[4rem] space-y-6 px-8">
+        <div className="sticky top-[17.5rem] space-y-6 px-8">
             <ScrollSpy headings={headings}/>
             <ButtonsCollection/>
         </div>

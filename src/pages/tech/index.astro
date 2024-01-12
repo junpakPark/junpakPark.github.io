@@ -3,27 +3,24 @@ import {getCollection, type CollectionEntry} from "astro:content";
 import {processPosts} from "../../utils";
 
 import PostList from "../../components/PostList";
-import Categories from "../../components/Categories";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
+import SidebarLayout from "../../layouts/SidebarLayout.astro";
 
 const allPosts: CollectionEntry<"blog">[] = await getCollection("blog");
-const allCategories: CollectionEntry<"category">[] = await getCollection("category");
 const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
 ---
 <BaseLayout>
+    <SidebarLayout />
     <MainLayout>
-        <div class="flex justify-around">
-            <div class="w-[16rem] hidden lg:block">
-                <Categories categories={allCategories} posts={processedPosts}/>
-            </div>
-            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+            <article class="col-span-3 p-[4rem]">
                 <h1 class="text-2xl font-semibold">
                     전체 글 <span class="text-xl text-purple-600"> ({processedPosts.length}) </span>
                 </h1>
                 <PostList posts={processedPosts}/>
             </article>
-            <div class="w-[16rem] hidden xl:block"></div>
+            <div class="hidden xl:block col-span-1 w-[16rem] py-8 "></div>
         </div>
     </MainLayout>
 </BaseLayout>

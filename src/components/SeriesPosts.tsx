@@ -11,7 +11,7 @@ interface SeriesProps {
 
 const SeriesPosts: React.FC<SeriesProps> = ({seriesPosts, seriesData, currentPost}) => {
     return (
-        <details className="border rounded-xl p-8 text-gray-700 space-y-4 [&_svg]:open:rotate-0">
+        <details open className="border rounded-xl p-8 text-gray-700 space-y-4 [&_svg]:open:rotate-0">
             <summary className="list-none">
                 <a
                     href={`/series/${slugify(seriesData.title)}`}

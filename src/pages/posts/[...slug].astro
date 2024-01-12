@@ -2,7 +2,6 @@
 import {getCollection, type CollectionEntry, getEntries} from "astro:content";
 import {slugify, processPosts} from "../../utils";
 
-import Categories from "../../components/Categories";
 import ArticleHeader from "../../components/article/ArticleHeader";
 import ArticleFooter from "../../components/article/ArticleFooter";
 import FloatingBar from "../../components/article/FloatingBar";
@@ -11,6 +10,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 
 import "../../styles/mdx.css";
+import SidebarLayout from "../../layouts/SidebarLayout.astro";
 
 
 export const getStaticPaths = async (): Promise<any[]> => {
@@ -33,34 +33,31 @@ export const getStaticPaths = async (): Promise<any[]> => {
                 post,
                 prevPost: posts[index + 1],
                 nextPost: posts[index - 1],
-                series: foundSeries.data,
+                series: foundSeries?.data,
             },
         }
     });
 }
 
-const {allCategories, allPosts, post, prevPost, nextPost, series} = Astro.props;
+const {post, prevPost, nextPost, series} = Astro.props;
 const {Content, headings} = await post.render();
-const seriesPosts: CollectionEntry<'blog'>[] = processPosts(await getEntries(series.posts), {sortOption: 'None'});
+
+const seriesPosts: CollectionEntry<'blog'>[] = series ? processPosts(await getEntries(series.posts), {sortOption: 'None'}) : undefined;
 ---
-
 <BaseLayout>
+    <SidebarLayout/>
     <MainLayout>
-        <div class="flex justify-around">
-            <div class="w-[16rem] hidden lg:block border-r-[1px] border-l-[1px]">
-                <Categories categories={allCategories} posts={allPosts}/>
-            </div>
-
-            <article class="mx-auto md:w-[48rem] p-[4rem]">
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+            <article class="col-span-3 p-[4rem]">
                 <ArticleHeader article={post}/>
-                <div class="mdx">
+                <div class="-z-10 mdx">
                     <Content/>
                 </div>
                 {seriesPosts ?
                         <SeriesPosts {seriesPosts} seriesData={series} currentPost={post}/> : undefined}
                 <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
             </article>
-            <div class="w-[16rem] hidden xl:block">
+            <div class="hidden xl:block col-span-1 w-[16rem]">
                 <FloatingBar headings={headings} client:load/>
             </div>
         </div>

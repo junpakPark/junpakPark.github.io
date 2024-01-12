@@ -1,10 +1,11 @@
 ---
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 ---
 
-<main
-        class="max-w-screen-xl mx-auto"
-        style="min-height: calc(100vh - 188px)"
->
-    <slot/>
+<main class="md:ml-[260px] 2xl:ml-[350px] h-auto">
+    <Header client:load/>
+        <slot/>
+    <Footer/>
 </main>

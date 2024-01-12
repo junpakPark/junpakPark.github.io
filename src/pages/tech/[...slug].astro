@@ -2,10 +2,10 @@
 import {type CollectionEntry, getCollection} from "astro:content";
 import {getMostRecentDateFormatted, processPosts} from "../../utils";
 
-import Categories from "../../components/Categories";
 import PostList from "../../components/PostList";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
+import SidebarLayout from "../../layouts/SidebarLayout.astro";
 
 
 export const getStaticPaths = async (): Promise<any[]> => {
@@ -20,29 +20,33 @@ export const getStaticPaths = async (): Promise<any[]> => {
                 slug: category.id
             },
             props: {
-                category, allCategories, allPosts, categoryPosts
+                category, categoryPosts
             }
         }
     });
 };
 
-const {category, allCategories, allPosts, categoryPosts} = Astro.props;
+const {category, categoryPosts} = Astro.props;
 ---
 <BaseLayout>
+    <SidebarLayout/>
     <MainLayout>
-        <div class="flex justify-around">
-            <div class="w-[16rem] hidden lg:block">
-                <Categories categories={allCategories} posts={allPosts}/>
-            </div>
-            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
-                <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{category.data.title}</label>
-                <p class="text-5xl text-black font-bold whitespace-pre-wrap break-keep w-[600px]">{category.data.description}</p>
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+            <article class="col-span-3 p-[4rem] space-y-4">
+                <label class="font-bold inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{category.data.title}</label>
+                <p class="text-4xl text-black font-bold whitespace-pre-wrap break-keep w-[600px]">{category.data.description}</p>
                 <p class="text-black">
                     <span class="text-fuchsia-400">{categoryPosts.length}</span> Posts |
                     Last updated on {getMostRecentDateFormatted(categoryPosts)}
                 </p>
                 <PostList posts={categoryPosts}/>
             </article>
+            <div class="hidden xl:block col-span-1 w-[16rem]">
+                <div class="border-l h-full">
+
+                </div>
+            </div>
         </div>
+
     </MainLayout>
 </BaseLayout>

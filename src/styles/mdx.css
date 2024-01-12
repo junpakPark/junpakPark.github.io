@@ -46,27 +46,11 @@
     font-weight: 550;
 }
 
-.mdx blockquote {
+.mdx .expressive-code {
     position: relative;
-    color: var(--gray-800);
-    font-family: sans-serif;
-    quotes: '“' '”' '‘' '’';
-    --quote-offset: 3px;
+    z-index: -10;
 }
 
-.mdx blockquote:before {
-    position: absolute;
-    left: calc(-1 * var(--quote-offset));
-    color: var(--gray-800);
-    content: open-quote;
-    transform: translateX(-100%);
-}
-
-.mdx blockquote :last-child:after {
-    margin-left: var(--quote-offset);
-    color: var(--gray-800);
-    content: close-quote;
-}
 
 .mdx > :has(+ :where(ul, ol)) {
     margin-bottom: 0.5rem;
@@ -175,7 +159,6 @@
 }
 
 .mdx code:not(pre code) {
-    position: relative;
     padding: 0;
     border-radius: 6px;
     color: var(--gray-800);
@@ -192,7 +175,6 @@
 }
 
 .mdx pre {
-    position: relative;
     display: grid;
     padding: 12px 16px;
     border-radius: 8px;

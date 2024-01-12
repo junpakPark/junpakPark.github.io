@@ -1,0 +1,33 @@
+---
+import {CollectionEntry, getCollection} from "astro:content";
+import {type FeatureProps, SOCIAL_MEDIAS} from "../constants";
+import {processPosts} from "../utils";
+
+import SocialButtons from "../components/SocialButtons";
+import Categories from "../components/Categories";
+
+
+interface FeatureButtonsProps {
+    features: FeatureProps[];
+}
+
+const allPosts: CollectionEntry<"blog">[] = processPosts(await getCollection("blog"));
+const allCategories: CollectionEntry<"category">[] = await getCollection("category");
+---
+<div class="hidden md:flex flex-col justify-between fixed top-0 left-0 h-full pt-12 overflow-y-auto md:w-[260px] 2xl:w-[350px] border-r-[1px]">
+    <div>
+        <div class="text-center mx-auto py-5 space-y-2">
+            <a href="/" class="mx-auto space-y-6">
+                <img
+                        alt="avatar"
+                        class="mx-auto rounded-full max-w-[8rem]"
+                        src="https://avatars.githubusercontent.com/u/112045553?v=4">
+                <h1 class="text-2xl font-bold">준팍.log</h1>
+            </a>
+            <p class="font-light">make it work, make it better</p>
+        </div>
+        <Categories categories={allCategories} posts={allPosts}/>
+    </div>
+    <SocialButtons socialMedias={SOCIAL_MEDIAS}/>
+</div>
+

@@ -69,23 +69,21 @@ const Categories: React.FC<CategoriesProps> = ({categories, posts}) => {
     const categoryPostCounts = countPostsPerCategory(posts, categories);
 
     return (
-        <div className="sticky top-[17.5rem] left-[4rem]">
-            <div
-                className="p-4 mx-auto space-y-2 border-t-[1px] border-b-[1px]">
-                <h2 className="text-gray-400 mb-2">
-                    <a href="/tech">전체 글 보기 ({posts.length})</a>
-                </h2>
-                {
-                    Object.entries(categoriesByMajor).map(([major, categories]) => (
-                        <MajorCategory
-                            key={major}
-                            major={major}
-                            categories={categories}
-                            categoryPostCounts={categoryPostCounts}
-                        />
-                    ))
-                }
-            </div>
+        <div
+            className="md:px-8 2xl:px-16  py-8 w-full space-y-2 border-t-[1px]">
+            <h2 className="text-gray-400 mb-2">
+                <a href="/tech">전체 글 보기 ({posts.length})</a>
+            </h2>
+            {
+                Object.entries(categoriesByMajor).map(([major, categories]) => (
+                    <MajorCategory
+                        key={major}
+                        major={major}
+                        categories={categories}
+                        categoryPostCounts={categoryPostCounts}
+                    />
+                ))
+            }
         </div>
     )
         ;

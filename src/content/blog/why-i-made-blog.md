@@ -1,10 +1,10 @@
 ---
 category: "mission"
-title: "Exploring JSX in React (1)"
-date: "2024-01-01"
+title: "블로그를 만들게 되기까지"
+date: 2024-01-01
 author: "준팍"
 image: "thumbnail.jpg"
-description: 오늘은 jsx에 대해 알아보겠습니다. 근데 이제 리액트를 곁들인.
+description: 왜 그런 짓을 하셨죠?
 published: true
 tags: [ "React", "JSX", "Frontend" ]
 ---

@@ -5,6 +5,7 @@ import {processPosts, slugify} from "../../utils";
 import PostList from "../../components/PostList";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
+import SidebarLayout from "../../layouts/SidebarLayout.astro";
 
 
 export const getStaticPaths = async (): Promise<any[]> => {
@@ -31,9 +32,10 @@ export const getStaticPaths = async (): Promise<any[]> => {
 const {tag, taggedPosts} = Astro.props;
 ---
 <BaseLayout>
+    <SidebarLayout/>
     <MainLayout>
-        <div class="flex justify-around">
-            <article class="mx-auto md:w-[48rem] p-[4rem] space-y-4">
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto">
+            <article class="col-span-3 p-[4rem]">
                 <h1 class="text-2xl font-semibold">
                     <span class="text-purple-600"> {taggedPosts.length} </span>
                     Posts about
@@ -42,7 +44,11 @@ const {tag, taggedPosts} = Astro.props;
                 </h1>
                 <PostList posts={taggedPosts}/>
             </article>
-        </div>
+            <div class="hidden xl:block col-span-1 w-[16rem]">
+                <div class="border-l h-full">
 
+                </div>
+            </div>
+        </div>
     </MainLayout>
 </BaseLayout>

@@ -1,5 +1,5 @@
 ---
-import {CollectionEntry, getCollection} from "astro:content";
+import {type CollectionEntry, getCollection} from "astro:content";
 import {type FeatureProps, SOCIAL_MEDIAS} from "../constants";
 import {processPosts} from "../utils";
 
@@ -26,6 +26,6 @@ const allCategories: CollectionEntry<"category">[] = await getCollection("catego
         <SocialButtons socialMedias={SOCIAL_MEDIAS}/>
         <p class="font-light">make it work, make it better</p>
     </div>
-    <Categories categories={allCategories} posts={allPosts}/>
+    <Categories categories={allCategories.sort((a,b)=> a.data.order - b.data.order)} posts={allPosts}/>
 </div>
 

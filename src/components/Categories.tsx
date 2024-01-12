@@ -45,8 +45,11 @@ interface MajorCategoryProps {
 }
 
 const MajorCategory: React.FC<MajorCategoryProps> = React.memo(({major, categories, categoryPostCounts}) => (
-    <div className="space-y-2">
-        <h2 className="text-gray-400">{major}</h2>
+    <details open={major !== "INBOX"} className="space-y-2">
+        <summary className="list-none cursor-pointer">
+            <h2 className="text-gray-400">{major}</h2>
+        </summary>
+
         <ul className="ml-2 border-l-[1.5px] border-solid space-y-1">
             {categories.map((category) => (
                 <li key={category.data.title} className="text-sm text-gray-400 pl-3">
@@ -56,7 +59,7 @@ const MajorCategory: React.FC<MajorCategoryProps> = React.memo(({major, categori
                 </li>
             ))}
         </ul>
-    </div>
+    </details>
 ));
 
 interface CategoriesProps {
@@ -85,8 +88,7 @@ const Categories: React.FC<CategoriesProps> = ({categories, posts}) => {
                 ))
             }
         </div>
-    )
-        ;
+    );
 };
 
 export default Categories;

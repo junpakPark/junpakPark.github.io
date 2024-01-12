@@ -1,5 +1,5 @@
 ---
-category: "mission"
+category: "idea"
 title: "블로그를 만들게 되기까지"
 date: 2024-01-01
 author: "준팍"
@@ -10,6 +10,9 @@ tags: [ "React", "JSX", "Frontend" ]
 ---
 # 진짜 제목
 
+``` java
+const hello = new Hello();
+```
 
 JSX, or JavaScript XML, is a syntax extension for JavaScript often used with React to describe what the UI should look like. 
 By using JSX, you can write HTML structures in the same file as your JavaScript code. This integration of markup with logic makes building React components more intuitive and accessible.

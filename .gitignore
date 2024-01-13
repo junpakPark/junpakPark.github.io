@@ -1,6 +1,6 @@
 ### Obsidian ###
 .obsidian
-.src/content/blog/template
+/template
 
 ### Astro ###
 # Gitignore template for Astro projects
@@ -325,3 +325,4 @@ sketch
 # Ignore all local history of files
 .history
 .ionide
+

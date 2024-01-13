@@ -1,73 +1,61 @@
 ---
-category: "idea"
-title: "블로그를 만들게 되기까지"
-date: 2024-01-01
-author: "준팍"
-image: "thumbnail.jpg"
-description: 왜 그런 짓을 하셨죠?
-published: true
-tags: [ "React", "JSX", "Frontend" ]
+category: idea
+title: 블로그를 만들기 앞서
+date: 2024-01-04
+author: 준팍
+image: thumbnail.jpg
+description: 나는 왜 블로그를 만드는걸까?
+published: false
+tags:
+  - Blog
+  - React
+  - Astro
 ---
-# 진짜 제목
 
-``` java
-const hello = new Hello();
-```
+2017년 4월쯤 상무대에서, 나는 `에디톨로지` 라는 책을 읽었다. 
+창조는 편집이라는 도발적인 문구도 맘에 들었지만,
+저자인 김정운 교수가 독일 유학 때 배워왔다던 메모법,
+`Zettelkasten` 이라는 개념이 머릿속에 꽤 오래남았다.
 
-JSX, or JavaScript XML, is a syntax extension for JavaScript often used with React to describe what the UI should look like. 
-By using JSX, you can write HTML structures in the same file as your JavaScript code. This integration of markup with logic makes building React components more intuitive and accessible.
+우테코에서의 프로젝트, `괜찮을지도` 에서 다른 지도에 있던 기존 핀들을
+재조합해서 새로운 지도를 만든다는 발상의 시작도 이 책이었다.
 
-## What is JSX?
+그래서 내가 왜 블로그를 만들었냐는 질문엔
+아래 3가지 이유로 답변할 수 있을 것 같다.
 
-At its core, JSX is a syntax extension for JavaScript. It looks like HTML and can be used within JavaScript files.
-Despite its HTML-like appearance, JSX is fully integrated with JavaScript.
+## 1.  기록의 중요성 체감
 
-Here’s a simple example of JSX:
+가장 큰 이유는 기록의 중요성을 체감했기 때문이다.
+작년의 10개월 간 우테코에서 정말 많은 것을 배웠고,
+정말 많이 성장할 수 있었다.
 
-```jsx
-const element = <h1>Hello, world!</h1>;
-```
+그러나 막상 이력서를 쓰려고 하니 무슨 말을 써야할지 감을 잡을 수 없었다.
+프로젝트에 PR이나 문서로 남기지 않았지만 정말 열심히 공부한 것들이 많은데
+어떻게 증빙을 해야할지, 또 어떤 식으로 적으면 좋을지 알 수 없었다.
 
-This code defines a constant `element` that stores a JSX expression. When used with React, this expression will render
-a `<h1>` element with the text “Hello, world!” on the web page.
+기록을 전혀 하지 않은 건 아니지만, 나만 알아볼 수 있게 대충 정리한 것들은
+미래의 내가 봤을 때는 알아보기가 굉장히 힘들었다.
+
+소 잃고 외양간 고치기라고 해도 할 말은 없겠지만,
+그래서 지금부터라도 이전에 학습한 내용과 새롭게 학습한 내용을
+정리해보려고 한다.
+
+## 2. 취향의 블로그 플랫폼 부재
+
+기술블로그를 만들려고 도전하지 않았던 것은 아니다.
+우테코 레벨 1때는 velog를 사용했었다. 마크다운이나 시리즈 기능 등
+개발자가 글쓰기 편한 기능이 정말 많았지만, 카테고리 형식 대신,
+태그로 글들을 분류한다는 점이 다소 아쉬웠다.
+
+그래서 카테고리를 원하는대로 만들 수 있는 티스토리로 갔으나...
+velog의 시리즈 기능이 없다는 점이 아쉬웠다.
+
+그렇다. 나는 카테고리 기능과 시리즈 기능이 모두 필요했다.
+
+기술 블로그에서 글을 쓰다보면, 특정 카테고리에 대해서
+깊게 파고드는 글(혹은 글들)을 작성할 때도 있지만,
+어떤 기능을 구현하기 위해서 기술들을 횡적으로 넘나드는 글들을 작성할 때도 있다.
 
 
-## Why Use JSX?
 
-### 나도 알 수가 없다...
 
-The main advantage of JSX is its readability and expressiveness. Since it resembles HTML, developers who are familiar
-with web development can easily understand and use JSX in their React applications.
-
-JSX also allows for the dynamic rendering of content. You can embed JavaScript expressions inside braces `{}` within
-JSX. This feature lets you integrate logic and UI seamlessly.
-
-For example:
-
-```js title="line-markers.js" del={2} ins={3-4} {6}
-function demo() {
-    console.log('this line is marked as deleted')
-    // This line and the next one are marked as inserted
-    console.log('this is the second inserted line')
-
-    return 'this line uses the neutral default marker type'
-}
-```
-
-This will render “Hello, React Developer” on the screen.
-
-## Components and JSX
-
-React components can return JSX to define their UI structure. Components are the building blocks of React applications,
-and JSX provides a concise and readable way to compose these components.
-
-Consider a simple component:
-
-```jsx
-function Welcome(props) {
-    return <h1>Hello, {props.name}</h1>;
-}
-```
-
-This component, `Welcome`, takes a `props` object and returns a JSX expression that dynamically inserts the `name`
-property into the rendered output.

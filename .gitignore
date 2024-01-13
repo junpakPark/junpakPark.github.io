@@ -1,6 +1,6 @@
 ### Obsidian ###
 .obsidian
-./src/content/blog/template
+.src/content/blog/template
 
 ### Astro ###
 # Gitignore template for Astro projects

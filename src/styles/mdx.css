@@ -13,6 +13,11 @@
     line-height: 1.75;
 }
 
+.mdx p img {
+    max-width: 600px;
+    text-align: center;
+}
+
 .mdx h1,
 .mdx h2,
 .mdx h3,

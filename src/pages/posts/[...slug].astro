@@ -42,7 +42,7 @@ export const getStaticPaths = async (): Promise<any[]> => {
 const {post, prevPost, nextPost, series} = Astro.props;
 const {Content, headings} = await post.render();
 
-const seriesPosts: CollectionEntry<'blog'>[] = series ? processPosts(await getEntries(series.posts), {sortOption: 'None'}) : undefined;
+const seriesPosts: CollectionEntry<'blog'>[] = series ? processPosts(await getEntries(series.posts), {sortOption: 'None'}) : [];
 ---
 <BaseLayout>
     <SidebarLayout/>
@@ -53,8 +53,8 @@ const seriesPosts: CollectionEntry<'blog'>[] = series ? processPosts(await getEn
                 <div class="-z-10 mdx">
                     <Content/>
                 </div>
-                {seriesPosts ?
-                        <SeriesPosts {seriesPosts} seriesData={series} currentPost={post}/> : undefined}
+                {seriesPosts.length > 0 ?
+                        <SeriesPosts {seriesPosts} seriesData={series} currentPost={post}/> : ""}
                 <ArticleFooter client:load prevPost={prevPost} nextPost={nextPost}/>
             </article>
             <div class="hidden xl:block w-[16rem]">

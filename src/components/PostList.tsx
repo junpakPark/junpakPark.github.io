@@ -29,7 +29,7 @@ const PostItem: React.FC<PostItemProps> = ({post, index}) => {
 
 interface PostListProps {
     posts: CollectionEntry<'blog'>[];
-    isIndexed: boolean;
+    isIndexed?: boolean;
 }
 
 const PostList: React.FC<PostListProps> = ({posts, isIndexed}) => {

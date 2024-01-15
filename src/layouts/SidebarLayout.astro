@@ -7,10 +7,6 @@ import SocialButtons from "../components/SocialButtons";
 import Categories from "../components/Categories";
 
 
-interface FeatureButtonsProps {
-    features: FeatureProps[];
-}
-
 const allPosts: CollectionEntry<"blog">[] = processPosts(await getCollection("blog"));
 const allCategories: CollectionEntry<"category">[] = await getCollection("category");
 ---

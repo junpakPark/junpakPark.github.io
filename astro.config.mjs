@@ -11,7 +11,6 @@ import rehypeExternalLinks from "rehype-external-links";
 // https://astro.build/config
 export default defineConfig({
     site: 'https://junpakPark.github.io',
-    output: 'static', // 추가한 설정
     integrations: [
         react(),
         sitemap(),

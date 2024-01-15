@@ -14,15 +14,15 @@ const processedPosts: CollectionEntry<"blog">[] = processPosts(allPosts);
     <SidebarLayout/>
     <MainLayout>
         <div
-                class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto"
+                class="flex h-auto max-w-screen-xl mx-auto justify-around"
                 style="min-height: calc(100vh - 136px)">
-            <article class="col-span-3 p-[4rem]">
+            <article class="p-[4rem] max-w-[64rem]">
                 <h1 class="text-2xl font-semibold">
                     전체 글 <span class="text-xl text-purple-600"> ({processedPosts.length}) </span>
                 </h1>
                 <PostList posts={processedPosts}/>
             </article>
-            <div class="hidden xl:block col-span-1 w-[16rem] py-8 "></div>
+            <div class="hidden xl:block col-span-1 w-[16rem]"></div>
         </div>
     </MainLayout>
 </BaseLayout>

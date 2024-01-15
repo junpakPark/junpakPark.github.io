@@ -103,22 +103,6 @@
     text-indent: calc(-1 * var(--l));
 }
 
-.mdx ol li:before {
-    display: inline-flex;
-    min-width: var(--counter-space);
-    align-items: center;
-    justify-content: flex-end;
-    margin-right: var(--counter-space);
-    color: var(--gray-300);
-    content: counter(basics-ol) '. ';
-    counter-increment: basics-ol;
-    font-feature-settings: 'tnum' 1;
-    letter-spacing: -0.05em;
-    line-height: normal;
-    text-align: right;
-    user-select: none;
-}
-
 .mdx hr {
     height: 1px;
     border: none;

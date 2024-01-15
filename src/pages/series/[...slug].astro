@@ -7,7 +7,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import SidebarLayout from "../../layouts/SidebarLayout.astro";
 
-
 export const getStaticPaths = async (): Promise<any[]> => {
     const allSeries: CollectionEntry<'series'>[] = await getCollection("series");
 
@@ -31,25 +30,27 @@ const processedPosts: CollectionEntry<"blog">[] = processPosts(await getEntries(
     <MainLayout>
         <div class="relative w-full min-h-64 bg-cover" style={{backgroundImage: `url('/images/${series.imageUrl}')`}}>
             <div class="absolute inset-0 bg-black/50"></div>
-            <div class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto items-end">
-                <div class="absolute bottom-3 space-y-4 col-span-3 px-[4rem]">
-                    <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{series.title}</label>
-                    <p class="text-5xl text-white font-bold whitespace-pre-wrap break-keep w-[600px]">{series.description}</p>
-                    <p class="text-white">
-                        <span class="text-fuchsia-400">{processedPosts.length}</span> Posts |
-                        Last updated on {getMostRecentDateFormatted(processedPosts)}
-                    </p>
+            <div class="absolute bottom-3 w-full">
+                <div class="flex h-auto max-w-screen-xl mx-auto justify-around">
+                    <div class="space-y-4 max-w-[56rem]">
+                        <label class="font-medium inline-flex border-b-2 border-solid border-fuchsia-400 text-fuchsia-400">{series.title}</label>
+                        <p class="text-5xl text-white font-bold whitespace-pre-wrap break-keep">{series.description}</p>
+                        <p class="text-white">
+                            <span class="text-fuchsia-400">{processedPosts.length}</span> Posts |
+                            Last updated on {getMostRecentDateFormatted(processedPosts)}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div
-                class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto"
-                style="min-height: calc(100vh - 390px)">
-            <article class="col-span-3 p-[4rem]">
+                class="flex h-auto max-w-screen-xl mx-auto justify-around"
+                style="min-height: calc(100vh - 390px)"
+        >
+            <article class="py-[4rem] max-w-[56rem]">
                 <PostList posts={processedPosts} isIndexed={true}/>
             </article>
-            <div class="hidden xl:block col-span-1 w-[16rem] py-8 "></div>
         </div>
     </MainLayout>
 </BaseLayout>

@@ -47,10 +47,8 @@ const seriesPosts: CollectionEntry<'blog'>[] = series ? processPosts(await getEn
 <BaseLayout>
     <SidebarLayout/>
     <MainLayout>
-        <div
-                class="grid grid-cols-1 xl:grid-cols-4 gap-8 h-auto max-w-screen-xl mx-auto"
-                style="min-height: calc(100vh - 136px)">
-            <article class="col-span-3 p-[4rem]">
+        <div class="flex h-auto max-w-screen-xl mx-auto justify-around">
+            <article class="py-[4rem] max-w-[56rem]">
                 <ArticleHeader article={post}/>
                 <div class="-z-10 mdx">
                     <Content/>
@@ -59,7 +57,7 @@ const seriesPosts: CollectionEntry<'blog'>[] = series ? processPosts(await getEn
                         <SeriesPosts {seriesPosts} seriesData={series} currentPost={post}/> : undefined}
                 <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
             </article>
-            <div class="hidden xl:block col-span-1 w-[16rem]">
+            <div class="hidden xl:block w-[16rem]">
                 <FloatingBar headings={headings} client:load/>
             </div>
         </div>

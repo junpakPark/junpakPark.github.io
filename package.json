@@ -1,7 +1,8 @@
 {
-  "name": "",
+  "name": "junpakPark.github.io",
   "type": "module",
   "version": "0.0.1",
+  "homepage": "https://bepyan.github.io/",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

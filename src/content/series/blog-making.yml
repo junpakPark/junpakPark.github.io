@@ -1,0 +1,5 @@
+title: 셀프메이드 블로그 제작기
+imageUrl: blog-making.jpg
+description: 블로그를 만들겠습니다... 근데 이제 Astro를 곁들인..
+posts:
+  - why-i-made-blog

@@ -55,7 +55,7 @@ const seriesPosts: CollectionEntry<'blog'>[] = series ? processPosts(await getEn
                 </div>
                 {seriesPosts ?
                         <SeriesPosts {seriesPosts} seriesData={series} currentPost={post}/> : undefined}
-                <ArticleFooter prevPost={prevPost} nextPost={nextPost}/>
+                <ArticleFooter client:load prevPost={prevPost} nextPost={nextPost}/>
             </article>
             <div class="hidden xl:block w-[16rem]">
                 <FloatingBar headings={headings} client:load/>

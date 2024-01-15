@@ -3,6 +3,7 @@ import SocialButtons from "../SocialButtons";
 import type {CollectionEntry} from 'astro:content';
 import {slugify} from "../../utils";
 import {AUTHOR, SOCIAL_MEDIAS} from "../../constants";
+import Comments from "../Comments.tsx";
 
 interface NavigationLinkProps {
     post: CollectionEntry<'blog'>;
@@ -10,7 +11,7 @@ interface NavigationLinkProps {
 }
 
 const NavigationLink: React.FC<NavigationLinkProps> = ({post, direction}) => {
-    const { title} = post.data;
+    const {title} = post.data;
     return (
         <a
             href={`/posts/${slugify(post.slug)}`}
@@ -66,6 +67,7 @@ const ArticleFooter: React.FC<NavigationSectionProps> = ({prevPost, nextPost}) =
             <hr/>
             <ProfileComponent/>
             <NavigationSection prevPost={prevPost} nextPost={nextPost}/>
+            <Comments />
         </footer>
     );
 };

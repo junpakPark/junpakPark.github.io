@@ -1,7 +1,7 @@
 ---
 category: jvm
 title: Java Collection Framework 정리
-date: 2024-01-23
+date: 2024-01-25
 author: 준팍
 image: data-structure.jpg
 description: 자바의 collection들에 대해 알아보자
@@ -45,7 +45,7 @@ Java 1.2 버전에서 Java Collection Framework(JCF)를 도입했다.
 
 ### JCF의 구조
 
-![](/jfc.png)
+![](/images/jfc.png)
 
 - 학습 목적 상, 인터페이스와 구현 클래스 사이의 추상 클래스는 생략하였다.
 - **Collection 인터페이스**

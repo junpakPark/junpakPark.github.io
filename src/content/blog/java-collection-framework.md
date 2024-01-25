@@ -45,7 +45,7 @@ Java 1.2 버전에서 Java Collection Framework(JCF)를 도입했다.
 
 ### JCF의 구조
 
-![](/images/jfc.png)
+![JFC 구조](/images/jfc.png)
 
 - 학습 목적 상, 인터페이스와 구현 클래스 사이의 추상 클래스는 생략하였다.
 - **Collection 인터페이스**

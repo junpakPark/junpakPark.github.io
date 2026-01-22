@@ -167,7 +167,7 @@ const Particles: React.FC<ParticlesProps> = () => {
         };
     }, [resize, animate]);
 
-    useEffect(() => animate(), []);
+    useEffect(() => { animate(); }, [animate]);
 
     return <canvas
         ref={canvasRef}

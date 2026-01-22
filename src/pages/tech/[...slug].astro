@@ -9,8 +9,11 @@ import SidebarLayout from "../../layouts/SidebarLayout.astro";
 
 
 export const getStaticPaths = async (): Promise<any[]> => {
-    const allCategories: CollectionEntry<'category'>[] = await getCollection("category");
-    const allPosts: CollectionEntry<"blog">[] = processPosts(await getCollection("blog"));
+    const [allCategories, blogPosts] = await Promise.all([
+        getCollection("category"),
+        getCollection("blog"),
+    ]);
+    const allPosts: CollectionEntry<"blog">[] = processPosts(blogPosts);
 
     return allCategories.map(category => {
         const categoryPosts: CollectionEntry<"blog">[] = allPosts.filter(post => post.data.category.id === category.id);

@@ -10,13 +10,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import SidebarLayout from "../layouts/SidebarLayout.astro";
 
-const allPosts: CollectionEntry<"blog">[] = processPosts(await getCollection("blog"));
-const allCategories: CollectionEntry<"category">[] = await getCollection("category");
-const recentPost: CollectionEntry<"blog">[] = allPosts.slice(0, 9);
+const [blogPosts, allCategories, allSeries] = await Promise.all([
+    getCollection("blog"),
+    getCollection("category"),
+    getCollection("series"),
+]);
 
-const shuffledSeries: CollectionEntry<"series">[] = (
-    await getCollection("series")
-).sort(() => Math.random() - 0.5);
+const allPosts: CollectionEntry<"blog">[] = processPosts(blogPosts);
+const recentPost: CollectionEntry<"blog">[] = allPosts.slice(0, 9);
+const shuffledSeries: CollectionEntry<"series">[] = allSeries.sort(() => Math.random() - 0.5);
 ---
 
 <BaseLayout>
@@ -25,8 +27,8 @@ const shuffledSeries: CollectionEntry<"series">[] = (
     </SidebarLayout>
     <MainLayout>
         <div class="relative w-full h-56 md:h-96 transition ease-in-out">
-            <Carousel client:load slides={shuffledSeries}/>
-            <Particles client:load/>
+            <Carousel client:visible slides={shuffledSeries}/>
+            <Particles client:visible/>
         </div>
         <div class="my-8 max-w-screen-xl mx-auto flex-col">
             <h2 class="p-4 text-gray-700 text-2xl font-semibold">최근 포스팅 게시물</h2>

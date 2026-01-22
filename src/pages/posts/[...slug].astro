@@ -14,9 +14,12 @@ import SidebarLayout from "../../layouts/SidebarLayout.astro";
 
 
 export const getStaticPaths = async (): Promise<any[]> => {
-    const allPosts: CollectionEntry<"blog">[] = processPosts(await getCollection("blog"));
-    const allCategories: CollectionEntry<"category">[] = await getCollection("category");
-    const allSeries = await getCollection('series');
+    const [blogPosts, allCategories, allSeries] = await Promise.all([
+        getCollection("blog"),
+        getCollection("category"),
+        getCollection("series"),
+    ]);
+    const allPosts: CollectionEntry<"blog">[] = processPosts(blogPosts);
 
     return allPosts.map((post, index, posts) => {
         const foundSeries = allSeries.find((series) =>

@@ -1,3 +1,10 @@
+### Claude Agent ###
+.claude/
+.opencode/
+WORKFLOW.md
+FEATURE_LIST.md
+AUDIT_REPORT.md
+
 ### Obsidian ###
 .obsidian
 /template

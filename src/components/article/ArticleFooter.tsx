@@ -47,6 +47,10 @@ const ProfileComponent: React.FC = () => {
                         className="h-24 w-24 select-none overflow-hidden rounded-full"
                         alt="Profile Image"
                         draggable="false"
+                        loading="lazy"
+                        decoding="async"
+                        width={96}
+                        height={96}
                     />
                 </div>
                 <div className="space-y-1">

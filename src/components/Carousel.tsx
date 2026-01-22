@@ -68,6 +68,8 @@ const CarouselItem: React.FC<CarouselItemProps> = ({serieses, isActive}) => {
                     <img
                         src={`/images/${series.data.imageUrl}`} alt={`${series.data.title} image`}
                         className="absolute h-auto  w-full md:h-full md:w-auto object-cover filter saturate-150 contrast-75 brightness-110"
+                        loading="lazy"
+                        decoding="async"
                     />
 
                     <div

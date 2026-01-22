@@ -11,6 +11,9 @@ import rehypeExternalLinks from "rehype-external-links";
 // https://astro.build/config
 export default defineConfig({
     site: 'https://junpakPark.github.io',
+    image: {
+        domains: ['avatars.githubusercontent.com'],
+    },
     integrations: [
         react(),
         sitemap(),

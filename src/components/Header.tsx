@@ -1,22 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {FEATURES} from "../constants";
 import IconButton from './IconButton';
 
 const Header: React.FC = () => {
     const [width, setWidth] = useState(0);
-
-    const scrollHeight = () => {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight;
-        const percent = (scrollTop / (scrollHeight - clientHeight)) * 100;
-
-        setWidth(percent);
-    };
+    const ticking = useRef(false);
 
     useEffect(() => {
-        window.addEventListener('scroll', scrollHeight);
-        return () => window.removeEventListener('scroll', scrollHeight);
+        const updateScrollProgress = () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+            const clientHeight = document.documentElement.clientHeight;
+            const percent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+            setWidth(percent);
+            ticking.current = false;
+        };
+
+        const onScroll = () => {
+            if (!ticking.current) {
+                requestAnimationFrame(updateScrollProgress);
+                ticking.current = true;
+            }
+        };
+
+        window.addEventListener('scroll', onScroll, {passive: true});
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
     return (
@@ -28,8 +36,9 @@ const Header: React.FC = () => {
                     {FEATURES.map((feature) => (
                         <a
                             key={feature.name}
-                            href={`/${feature.name}`}>
-                            <IconButton iconPath={feature.path} width={20} height={20}/>
+                            href={`/${feature.name}`}
+                            aria-label={feature.name}>
+                            <IconButton iconPath={feature.path} width={20} height={20} ariaLabel={feature.name}/>
                         </a>
                     ))}
                 </nav>

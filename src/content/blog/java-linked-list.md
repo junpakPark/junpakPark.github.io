@@ -5,7 +5,7 @@ date: 2024-01-23
 author: 준팍
 image: data-structure.jpg
 description: 자바로 구현하는 연결 리스트
-published: true
+published: false
 tags:
   - Java
   - jcf

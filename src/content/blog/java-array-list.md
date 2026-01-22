@@ -5,7 +5,7 @@ date: 2024-01-16
 author: 준팍
 image: data-structure.jpg
 description: 자바로 구현하는 동적 배열
-published: true
+published: false
 tags:
   - Java
   - 배열

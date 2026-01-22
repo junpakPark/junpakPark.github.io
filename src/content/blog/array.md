@@ -5,7 +5,7 @@ date: 2024-01-16
 author: 준팍
 image: data-structure.jpg
 description: 배열에 대해 알아보자
-published: true
+published: false
 tags:
   - 자료구조
   - 배열

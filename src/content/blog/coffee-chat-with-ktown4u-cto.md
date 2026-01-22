@@ -5,7 +5,7 @@ date: 2024-01-12
 author: 준팍
 image: IMG_0421.jpg
 description: 그래야 사람은 움직여
-published: true
+published: false
 tags:
   - Ktown4u
   - 백명석

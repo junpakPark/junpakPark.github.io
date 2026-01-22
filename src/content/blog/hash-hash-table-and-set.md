@@ -5,7 +5,7 @@ date: 2024-01-23
 author: 준팍
 image: data-structure.jpg
 description: 해시와 해시 테이블, 셋에 대해 알아보자
-published: true
+published: false
 tags:
   - 자료구조
   - 해시

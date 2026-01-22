@@ -5,7 +5,7 @@ date: 2024-01-25
 author: 준팍
 image: data-structure.jpg
 description: 자바의 collection들에 대해 알아보자
-published: true
+published: false
 tags:
   - Java
   - jcf

@@ -5,7 +5,7 @@ date: 2024-01-17
 author: 준팍
 image: data-structure.jpg
 description: 연결 리스트에 대해 알아보자
-published: true
+published: false
 tags:
   - 자료구조
   - 연결리스트

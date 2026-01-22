@@ -4,11 +4,12 @@ type ButtonProps = {
     iconPath: string;
     width: number;
     height: number;
+    ariaLabel?: string;
 };
 
-const IconButton: React.FC<ButtonProps> = ({iconPath, width, height}) => {
+const IconButton: React.FC<ButtonProps> = ({iconPath, width, height, ariaLabel}) => {
     return (
-        <button type="button" className=" hover:text-gray-400">
+        <button type="button" className=" hover:text-gray-400" aria-label={ariaLabel}>
             <svg
                 width={width}
                 height={height}

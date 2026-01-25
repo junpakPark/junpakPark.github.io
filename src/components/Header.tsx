@@ -1,9 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {FEATURES} from "../constants";
 import IconButton from './IconButton';
+import SearchModal from './SearchModal';
 
 const Header: React.FC = () => {
     const [width, setWidth] = useState(0);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const ticking = useRef(false);
 
     useEffect(() => {
@@ -34,12 +36,23 @@ const Header: React.FC = () => {
             >
                 <nav className="flex space-x-8 justify-end items-center h-12 mx-auto px-8 max-w-screen-xl">
                     {FEATURES.map((feature) => (
-                        <a
-                            key={feature.name}
-                            href={feature.href || `/${feature.name}`}
-                            aria-label={feature.name}>
-                            <IconButton iconPath={feature.path} width={20} height={20} ariaLabel={feature.name}/>
-                        </a>
+                        feature.name === 'search' ? (
+                            <button
+                                key={feature.name}
+                                onClick={() => setIsSearchOpen(true)}
+                                aria-label={feature.name}
+                                className="cursor-pointer"
+                            >
+                                <IconButton iconPath={feature.path} width={20} height={20} ariaLabel={feature.name}/>
+                            </button>
+                        ) : (
+                            <a
+                                key={feature.name}
+                                href={feature.href || `/${feature.name}`}
+                                aria-label={feature.name}>
+                                <IconButton iconPath={feature.path} width={20} height={20} ariaLabel={feature.name}/>
+                            </a>
+                        )
                     ))}
                 </nav>
                 <hr/>
@@ -48,6 +61,7 @@ const Header: React.FC = () => {
                 className="fixed top-12 left-0 md:left-[260px] 2xl:left-[350px] h-1 z-50 bg-gradient-to-r from-pink-100 to-purple-600 rounded-tr-sm"
                 style={{width: `${width}%`}}
             />
+            <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
         </>
     );
 };

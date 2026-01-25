@@ -7,6 +7,7 @@ import tailwind from "@astrojs/tailwind";
 import remarkBreaks from "remark-breaks";
 import astroExpressiveCode from "astro-expressive-code";
 import rehypeExternalLinks from "rehype-external-links";
+import rehypeMermaid from "rehype-mermaid";
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,6 +28,7 @@ export default defineConfig({
         syntaxHighlight: false,
         remarkPlugins: [remarkBreaks],
         rehypePlugins: [
+            [rehypeMermaid, {strategy: 'inline-svg'}],
             [
                 rehypeExternalLinks,
                 {

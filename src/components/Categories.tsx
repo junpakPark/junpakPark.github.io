@@ -44,23 +44,33 @@ interface MajorCategoryProps {
     categoryPostCounts: Record<string, number>;
 }
 
-const MajorCategory: React.FC<MajorCategoryProps> = React.memo(({major, categories, categoryPostCounts}) => (
-    <details open={major !== "INBOX"} className="space-y-2">
-        <summary className="list-none cursor-pointer">
-            <h2 className="text-gray-400">{major}</h2>
-        </summary>
+const MajorCategory: React.FC<MajorCategoryProps> = React.memo(({major, categories, categoryPostCounts}) => {
+    const visibleCategories = categories.filter(
+        category => categoryPostCounts[category.id] > 0
+    );
 
-        <ul className="ml-2 border-l-[1.5px] border-solid space-y-1">
-            {categories.map((category) => (
-                <li key={category.data.title} className="text-sm text-gray-400 pl-3">
-                    <a href={`/tech/${slugify(category.id)}`}>
-                        {category.data.title} ({categoryPostCounts[category.id]})
-                    </a>
-                </li>
-            ))}
-        </ul>
-    </details>
-));
+    if (visibleCategories.length === 0) {
+        return null;
+    }
+
+    return (
+        <details open={major !== "INBOX"} className="space-y-2">
+            <summary className="list-none cursor-pointer">
+                <h2 className="text-gray-400">{major}</h2>
+            </summary>
+
+            <ul className="ml-2 border-l-[1.5px] border-solid space-y-1">
+                {visibleCategories.map((category) => (
+                    <li key={category.data.title} className="text-sm text-gray-400 pl-3">
+                        <a href={`/tech/${slugify(category.id)}`}>
+                            {category.data.title} ({categoryPostCounts[category.id]})
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </details>
+    );
+});
 
 interface CategoriesProps {
     categories: CollectionEntry<"category">[];

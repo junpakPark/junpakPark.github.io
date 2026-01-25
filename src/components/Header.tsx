@@ -36,7 +36,7 @@ const Header: React.FC = () => {
                     {FEATURES.map((feature) => (
                         <a
                             key={feature.name}
-                            href={`/${feature.name}`}
+                            href={feature.href || `/${feature.name}`}
                             aria-label={feature.name}>
                             <IconButton iconPath={feature.path} width={20} height={20} ariaLabel={feature.name}/>
                         </a>

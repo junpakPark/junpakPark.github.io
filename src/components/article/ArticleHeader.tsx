@@ -14,9 +14,9 @@ const ArticleHeader: React.FC<ArticleHeaderProps> = ({article}) => {
         <header className='space-y-6 mb-16'>
             <h1 className="font-bold text-4xl">{title}</h1>
             <p>
-                <time className='font-thin text-gray-500 dark:text-gray-400'>{formatDate(date)} | </time>
+                <time className='font-thin text-gray-500'>{formatDate(date)} | </time>
                 <span
-                    className='font-light text-gray-500 dark:text-gray-400'>{calculateReadingTime(article.body)}</span>
+                    className='font-light text-gray-500'>{calculateReadingTime(article.body)}</span>
             </p>
             <TagList tags={tags}/>
             <hr/>
